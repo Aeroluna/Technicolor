@@ -1,0 +1,21 @@
+﻿namespace Technicolor.HarmonyPatches
+{
+    using Chroma.Colorizer;
+    using Technicolor.Settings;
+    using UnityEngine;
+
+    [TechniPatch(typeof(ColorNoteVisuals))]
+    [TechniPatch("HandleNoteControllerDidInitEvent")]
+    [TechniPatch(TechniPatchType.NOTES)]
+    internal class ColorNoteVisualsHandleNoteControllerDidInitEventColorizer
+    {
+#pragma warning disable SA1313 // Parameter names should begin with lower-case letter
+        private static void Prefix(NoteController noteController)
+#pragma warning restore SA1313 // Parameter names should begin with lower-case letter
+        {
+            NoteData noteData = noteController.noteData;
+            Color color = TechnicolorController.GetTechnicolor(noteData.noteType == NoteType.NoteA, noteData.time + noteController.GetInstanceID(), TechnicolorConfig.Instance.TechnicolorBlocksStyle);
+            noteController.SetNoteColors(color, color);
+        }
+    }
+}

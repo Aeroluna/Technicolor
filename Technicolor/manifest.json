@@ -1,0 +1,13 @@
+﻿{
+  "$schema": "https://raw.githubusercontent.com/nike4613/ModSaber-MetadataFileSchema/master/Schema.json",
+  "author": "Aeroluna",
+  "description": "Rainbow lights",
+  "gameVersion": "1.11.1",
+  "id": "Technicolor",
+  "name": "Technicolor",
+  "version": "0.0.1",
+  "dependsOn": {
+    "BeatSaberMarkupLanguage": "^1.3.4",
+    "Chroma": "^2.1.2"
+  }
+}

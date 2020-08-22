@@ -1,0 +1,13 @@
+﻿<bg xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
+    <scrollable-settings-container>
+      <bool-setting text='Technicolor' value='technicolor' hover-hint='Enable/Disable Technicolor. See Technicolor options below.'></bool-setting>
+      <dropdown-list-setting text='Technicolor Lights' value='techlights' options='techlightschoices' formatter='techlightform' hover-hint='Technicolor style of the lights.'></dropdown-list-setting>
+      <dropdown-list-setting text='Lights Grouping' value='lightsgroup' options='lightsgroupchoices' formatter='techgroupform' hover-hint='Isolated Event for better performance, but more chaotic lighting'></dropdown-list-setting>
+      <list-setting text='Lights Frequency' value='lightsfreq' choices='lightsfreqchoices' hover-hint='The higher the frequency, the more color changes.  10% is default.' formatter='percentfreq'></list-setting>
+      <dropdown-list-setting text='Technicolor Barriers' value='techbarriers' options='techbarrierschoices' formatter='techlightform' hover-hint='Technicolor style of barriers.'></dropdown-list-setting>
+      <dropdown-list-setting text='Technicolor Bombs' value='techbombs' options='techbarrierschoices' formatter='techlightform' hover-hint='Technicolor style of bombs.'></dropdown-list-setting>
+      <dropdown-list-setting text='Technicolor Notes' value='technotes' options='techlightschoices' formatter='techlightform' hover-hint='Technicolor style of the blocks. NOTE: If sabers are not technicolor, cutting a block will change their color to the color of the block.'></dropdown-list-setting>
+      <dropdown-list-setting text='Technicolor Sabers' value='techsabers' options='techlightschoices' formatter='techlightform' hover-hint='Technicolor style of the sabers.'></dropdown-list-setting>
+      <bool-setting text='Desync Left/Right' value='desync' hover-hint='If true, technicolor styles that shift between colors (Gradient) will desync left/right colors.'></bool-setting>
+    </scrollable-settings-container>
+</bg>
