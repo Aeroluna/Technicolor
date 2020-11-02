@@ -22,10 +22,10 @@
             {
                 if (TechnicolorConfig.Instance.TechnicolorLightsGrouping == TechnicolorLightsGrouping.ISOLATED)
                 {
-                    ____lightManager.SetColorForId(__instance.LightsID, TechnicolorController.GetTechnicolor(beatmapEventData.value > 3, beatmapEventData.time, TechnicolorConfig.Instance.TechnicolorLightsStyle));
+                    ____lightManager.SetColorForId(__instance.lightsId, TechnicolorController.GetTechnicolor(beatmapEventData.value > 3, beatmapEventData.time, TechnicolorConfig.Instance.TechnicolorLightsStyle));
 
                     List<LightWithId>[] lightManagerLights = _lightsWithIdAccessor(ref ____lightManager);
-                    List<LightWithId> lights = lightManagerLights[__instance.LightsID];
+                    List<LightWithId> lights = lightManagerLights[__instance.lightsId];
                     for (int i = 0; i < lights.Count; i++)
                     {
                         lights[i].ColorWasSet(TechnicolorController.GetTechnicolor(beatmapEventData.value > 3, beatmapEventData.time + lights[i].GetInstanceID(), TechnicolorConfig.Instance.TechnicolorLightsStyle));

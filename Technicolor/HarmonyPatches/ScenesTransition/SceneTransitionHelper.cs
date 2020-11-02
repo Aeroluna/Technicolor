@@ -1,18 +1,11 @@
 ﻿namespace Technicolor.HarmonyPatches
 {
-    using System;
     using Chroma;
-    using HarmonyLib;
     using Technicolor.Settings;
 
-    [HarmonyPatch(
-        typeof(StandardLevelScenesTransitionSetupDataSO),
-        new Type[] { typeof(IDifficultyBeatmap), typeof(OverrideEnvironmentSettings), typeof(ColorScheme), typeof(GameplayModifiers), typeof(PlayerSpecificSettings), typeof(PracticeSettings), typeof(string), typeof(bool) })]
-    [HarmonyPatch("Init")]
-    [HarmonyAfter(new string[] { "com.noodle.BeatSaber.ChromaCore" })]
-    internal static class StandardLevelScenesTransitionSetupDataSOInit
+    internal static class SceneTransitionHelper
     {
-        private static void Prefix()
+        internal static void Patch()
         {
             TechnicolorConfig config = TechnicolorConfig.Instance;
             if (config.TechnicolorEnabled && !ChromaController.ChromaIsActive)

@@ -5,7 +5,7 @@
     using UnityEngine;
 
     [TechniPatch(typeof(ColorNoteVisuals))]
-    [TechniPatch("HandleNoteControllerDidInitEvent")]
+    [TechniPatch("HandleNoteControllerDidInit")]
     [TechniPatch(TechniPatchType.NOTES)]
     internal class ColorNoteVisualsHandleNoteControllerDidInitEventColorizer
     {
@@ -14,7 +14,7 @@
 #pragma warning restore SA1313 // Parameter names should begin with lower-case letter
         {
             NoteData noteData = noteController.noteData;
-            Color color = TechnicolorController.GetTechnicolor(noteData.noteType == NoteType.NoteA, noteData.time + noteController.GetInstanceID(), TechnicolorConfig.Instance.TechnicolorBlocksStyle);
+            Color color = TechnicolorController.GetTechnicolor(noteData.colorType == ColorType.ColorA, noteData.time + noteController.GetInstanceID(), TechnicolorConfig.Instance.TechnicolorBlocksStyle);
             noteController.SetNoteColors(color, color);
         }
     }

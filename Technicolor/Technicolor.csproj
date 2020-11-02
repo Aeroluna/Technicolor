@@ -31,10 +31,14 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\..\NoodleExtensions\NoodleExtensions\NoodleExtensions.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Beat Saber\Libs\0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="BeatmapCore">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Beat Saber\Beat Saber_Data\Managed\BeatmapCore.dll</HintPath>
     </Reference>
     <Reference Include="BSML">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Beat Saber\Plugins\BSML.dll</HintPath>
@@ -44,6 +48,9 @@
     </Reference>
     <Reference Include="Colors">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Beat Saber\Beat Saber_Data\Managed\Colors.dll</HintPath>
+    </Reference>
+    <Reference Include="GameplayCore">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Beat Saber\Beat Saber_Data\Managed\GameplayCore.dll</HintPath>
     </Reference>
     <Reference Include="HMLib">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Beat Saber\Beat Saber_Data\Managed\HMLib.dll</HintPath>
@@ -81,7 +88,10 @@
     <Compile Include="HarmonyPatches\BombNoteController.cs" />
     <Compile Include="HarmonyPatches\ObstacleController.cs" />
     <Compile Include="HarmonyPatches\ParticleSystemEventEffect.cs" />
-    <Compile Include="HarmonyPatches\StandardLevelScenesTransitionSetupDataSO.cs" />
+    <Compile Include="HarmonyPatches\ScenesTransition\MissionLevelScenesTransitionSetupDataSO.cs" />
+    <Compile Include="HarmonyPatches\ScenesTransition\SceneTransitionHelper.cs" />
+    <Compile Include="HarmonyPatches\ScenesTransition\MultiplayerLevelScenesTransitionSetupDataSO.cs" />
+    <Compile Include="HarmonyPatches\ScenesTransition\StandardLevelScenesTransitionSetupDataSO.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Settings\TechnicolorConfig.cs" />
     <Compile Include="Settings\TechnicolorSettingsUI.cs" />

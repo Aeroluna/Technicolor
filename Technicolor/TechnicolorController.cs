@@ -127,7 +127,13 @@
 
                             foreach (string methodName in methodNames)
                             {
-                                patchDatas.Add(new TechniPatchData(AccessTools.Method(declaringType, methodName), prefix, postfix, transpiler));
+                                MethodInfo methodInfo = declaringType.GetMethod(methodName, BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly);
+                                if (methodInfo == null)
+                                {
+                                    throw new ArgumentException($"Could not find method '{methodName}' of '{declaringType}'");
+                                }
+
+                                patchDatas.Add(new TechniPatchData(methodInfo, prefix, postfix, transpiler));
                             }
                         }
                     }
