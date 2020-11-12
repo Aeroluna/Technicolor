@@ -11,7 +11,7 @@
     [TechniPatch(TechniPatchType.LIGHTS)]
     internal static class LightSwitchEventEffectHandleBeatmapObjectCallbackControllerBeatmapEventDidTrigger
     {
-        private static readonly FieldAccessor<LightWithIdManager, List<LightWithId>[]>.Accessor _lightsWithIdAccessor = FieldAccessor<LightWithIdManager, List<LightWithId>[]>.GetAccessor("_lights");
+        private static readonly FieldAccessor<LightWithIdManager, List<ILightWithId>[]>.Accessor _lightsWithIdAccessor = FieldAccessor<LightWithIdManager, List<ILightWithId>[]>.GetAccessor("_lights");
 
 #pragma warning disable SA1313 // Parameter names should begin with lower-case letter
         private static bool Prefix(LightSwitchEventEffect __instance, BeatmapEventData beatmapEventData, BeatmapEventType ____event, LightWithIdManager ____lightManager)
@@ -24,11 +24,11 @@
                 {
                     ____lightManager.SetColorForId(__instance.lightsId, TechnicolorController.GetTechnicolor(beatmapEventData.value > 3, beatmapEventData.time, TechnicolorConfig.Instance.TechnicolorLightsStyle));
 
-                    List<LightWithId>[] lightManagerLights = _lightsWithIdAccessor(ref ____lightManager);
-                    List<LightWithId> lights = lightManagerLights[__instance.lightsId];
+                    List<ILightWithId>[] lightManagerLights = _lightsWithIdAccessor(ref ____lightManager);
+                    List<ILightWithId> lights = lightManagerLights[__instance.lightsId];
                     for (int i = 0; i < lights.Count; i++)
                     {
-                        lights[i].ColorWasSet(TechnicolorController.GetTechnicolor(beatmapEventData.value > 3, beatmapEventData.time + lights[i].GetInstanceID(), TechnicolorConfig.Instance.TechnicolorLightsStyle));
+                        lights[i].ColorWasSet(TechnicolorController.GetTechnicolor(beatmapEventData.value > 3, beatmapEventData.time + lights[i].GetHashCode(), TechnicolorConfig.Instance.TechnicolorLightsStyle));
                     }
 
                     return false;
