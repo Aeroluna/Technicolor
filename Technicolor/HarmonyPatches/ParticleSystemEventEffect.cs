@@ -23,12 +23,12 @@
                 if (TechnicolorConfig.Instance.TechnicolorLightsGrouping == TechnicolorLightsGrouping.ISOLATED &&
                     TechnicolorController.TechniLightRandom.NextDouble() < TechnicolorConfig.Instance.TechnicolorLightsFrequency)
                 {
-                    ParticleSystem.MainModule mainmodule = _mainModuleAccessor(ref __instance);
-                    ParticleSystem.Particle[] particles = _particlesAccessor(ref __instance);
-                    ParticleSystem particleSystem = _particleSystemAccessor(ref __instance);
+                    var mainmodule = _mainModuleAccessor(ref __instance);
+                    var particles = _particlesAccessor(ref __instance);
+                    var particleSystem = _particleSystemAccessor(ref __instance);
                     mainmodule.startColor = TechnicolorController.GetTechnicolor(beatmapEventData.value > 3, beatmapEventData.time, TechnicolorConfig.Instance.TechnicolorLightsStyle);
                     particleSystem.GetParticles(particles, particles.Length);
-                    for (int i = 0; i < particleSystem.particleCount; i++)
+                    for (var i = 0; i < particleSystem.particleCount; i++)
                     {
                         particles[i].startColor = TechnicolorController.GetTechnicolor(beatmapEventData.value > 3, beatmapEventData.time + particles[i].randomSeed, TechnicolorConfig.Instance.TechnicolorLightsStyle);
                     }

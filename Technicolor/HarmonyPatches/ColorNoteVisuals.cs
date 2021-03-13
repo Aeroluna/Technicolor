@@ -13,8 +13,8 @@
         private static void Prefix(NoteController noteController)
 #pragma warning restore SA1313 // Parameter names should begin with lower-case letter
         {
-            NoteData noteData = noteController.noteData;
-            Color color = TechnicolorController.GetTechnicolor(noteData.colorType == ColorType.ColorA, noteData.time + noteController.GetInstanceID(), TechnicolorConfig.Instance.TechnicolorBlocksStyle);
+            var noteData = noteController.noteData;
+            var color = TechnicolorController.GetTechnicolor(noteData.colorType == ColorType.ColorA, noteData.time + noteController.GetInstanceID(), TechnicolorConfig.Instance.TechnicolorBlocksStyle);
             noteController.SetNoteColors(color, color);
         }
     }

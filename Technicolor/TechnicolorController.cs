@@ -6,7 +6,7 @@
     using System.Reflection;
     using HarmonyLib;
     using UnityEngine;
-    using static Technicolor.Plugin;
+    using static Plugin;
 
     internal static class TechnicolorController
     {
@@ -68,7 +68,7 @@
 
                     if (list != null)
                     {
-                        Harmony harmony = _techniPatchInstances[patchType];
+                        var harmony = _techniPatchInstances[patchType];
                         list.ForEach(n => harmony.Patch(
                             n.OriginalMethod,
                             n.Prefix != null ? new HarmonyMethod(n.Prefix) : null,
@@ -88,13 +88,13 @@
             if (patchDatas == null)
             {
                 patchDatas = new List<TechniPatchData>();
-                foreach (Type type in Assembly.GetExecutingAssembly().GetTypes())
+                foreach (var type in Assembly.GetExecutingAssembly().GetTypes())
                 {
                     IEnumerable<object> attributes = type.GetCustomAttributes(typeof(TechniPatch), true);
                     if (attributes.Count() > 0)
                     {
                         Type declaringType = null;
-                        List<string> methodNames = new List<string>();
+                        var methodNames = new List<string>();
                         TechniPatchType? patchPatchType = null;
                         foreach (TechniPatch n in attributes)
                         {
@@ -121,13 +121,13 @@
 
                         if (patchPatchType == patchType)
                         {
-                            MethodInfo prefix = AccessTools.Method(type, "Prefix");
-                            MethodInfo postfix = AccessTools.Method(type, "Postfix");
-                            MethodInfo transpiler = AccessTools.Method(type, "Transpiler");
+                            var prefix = AccessTools.Method(type, "Prefix");
+                            var postfix = AccessTools.Method(type, "Postfix");
+                            var transpiler = AccessTools.Method(type, "Transpiler");
 
-                            foreach (string methodName in methodNames)
+                            foreach (var methodName in methodNames)
                             {
-                                MethodInfo methodInfo = declaringType.GetMethod(methodName, BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly);
+                                var methodInfo = declaringType.GetMethod(methodName, BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly);
                                 if (methodInfo == null)
                                 {
                                     throw new ArgumentException($"Could not find method '{methodName}' of '{declaringType}'");
@@ -162,9 +162,9 @@
 
         internal static Color GetLerpedFromArray(Color[] colors, float time)
         {
-            float tm = Mathf.Repeat(time, colors.Length);
-            int t0 = Mathf.FloorToInt(tm);
-            int t1 = Mathf.CeilToInt(tm);
+            var tm = Mathf.Repeat(time, colors.Length);
+            var t0 = Mathf.FloorToInt(tm);
+            var t1 = Mathf.CeilToInt(tm);
             if (t1 >= colors.Length)
             {
                 t1 = 0;
@@ -205,7 +205,7 @@
 
         private static Color GetRandomFromArray(Color[] colors, float time, float seedMult = 8)
         {
-            System.Random rand = new System.Random(Mathf.FloorToInt(seedMult * time));
+            var rand = new System.Random(Mathf.FloorToInt(seedMult * time));
             return colors[rand.Next(0, colors.Length)];
         }
     }

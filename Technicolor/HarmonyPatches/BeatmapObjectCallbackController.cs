@@ -12,7 +12,7 @@
         private static void Postfix()
 #pragma warning restore SA1313 // Parameter names should begin with lower-case letter
         {
-            TechnicolorConfig config = TechnicolorConfig.Instance;
+            var config = TechnicolorConfig.Instance;
             if (config.TechnicolorEnabled && !ChromaController.ChromaIsActive)
             {
                 GradientController.InitializeGradients();

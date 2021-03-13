@@ -24,9 +24,9 @@
                 {
                     ____lightManager.SetColorForId(__instance.lightsId, TechnicolorController.GetTechnicolor(beatmapEventData.value > 3, beatmapEventData.time, TechnicolorConfig.Instance.TechnicolorLightsStyle));
 
-                    List<ILightWithId>[] lightManagerLights = _lightsWithIdAccessor(ref ____lightManager);
-                    List<ILightWithId> lights = lightManagerLights[__instance.lightsId];
-                    for (int i = 0; i < lights.Count; i++)
+                    var lightManagerLights = _lightsWithIdAccessor(ref ____lightManager);
+                    var lights = lightManagerLights[__instance.lightsId];
+                    for (var i = 0; i < lights.Count; i++)
                     {
                         lights[i].ColorWasSet(TechnicolorController.GetTechnicolor(beatmapEventData.value > 3, beatmapEventData.time + lights[i].GetHashCode(), TechnicolorConfig.Instance.TechnicolorLightsStyle));
                     }
@@ -35,7 +35,7 @@
                 }
                 else if (TechnicolorController.TechniLightRandom.NextDouble() < TechnicolorConfig.Instance.TechnicolorLightsFrequency)
                 {
-                    bool blue = beatmapEventData.value <= 3;
+                    var blue = beatmapEventData.value <= 3;
                     switch (TechnicolorConfig.Instance.TechnicolorLightsGrouping)
                     {
                         case TechnicolorLightsGrouping.ISOLATED_GROUP:

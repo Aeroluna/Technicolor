@@ -18,13 +18,13 @@
         private Color _gradientRightColor;
 
         private bool _match;
-        private float _mismatchSpeedOffset = 0;
+        private float _mismatchSpeedOffset;
 
         private Color[] _leftSaberPalette;
         private Color[] _rightSaberPalette;
 
-        private float _lastTime = 0;
-        private float _h = 0;
+        private float _lastTime;
+        private float _h;
         private Color[] _randomCycleLeft = new Color[2];
         private Color[] _randomCycleRight = new Color[2];
 
@@ -36,8 +36,8 @@
             {
                 if (_instance == null)
                 {
-                    TechnicolorConfig config = TechnicolorConfig.Instance;
-                    GameObject gameObject = new GameObject("Chroma_TechnicolourController");
+                    var config = TechnicolorConfig.Instance;
+                    var gameObject = new GameObject("Chroma_TechnicolourController");
                     _instance = gameObject.AddComponent<GradientController>();
 
                     _instance._match = config.Desync;
@@ -50,7 +50,7 @@
 
         internal static void InitializeGradients()
         {
-            TechnicolorConfig config = TechnicolorConfig.Instance;
+            var config = TechnicolorConfig.Instance;
             if (config.TechnicolorLightsStyle == TechnicolorStyle.GRADIENT)
             {
                 Instance.UpdateTechnicolourEvent += Instance.RainbowLights;
@@ -98,8 +98,8 @@
 
         private void Update()
         {
-            float timeMult = 0.1f;
-            float timeGlobalMult = 0.2f;
+            var timeMult = 0.1f;
+            var timeGlobalMult = 0.2f;
             _gradientColor = Color.HSVToRGB(Mathf.Repeat(Time.time * timeGlobalMult, 1f), 1f, 1f);
             _gradientLeftColor = Color.HSVToRGB(Mathf.Repeat((Time.time * timeMult) + _mismatchSpeedOffset, 1f), 1f, 1f);
             _gradientRightColor = Color.HSVToRGB(Mathf.Repeat(Time.time * timeMult, 1f), 1f, 1f);
@@ -192,8 +192,8 @@
 
         private void SetupRandom()
         {
-            _randomCycleLeft = new Color[] { Color.HSVToRGB(UnityEngine.Random.value, 1f, 1f), Color.HSVToRGB(UnityEngine.Random.value, 1f, 1f) };
-            _randomCycleRight = new Color[] { Color.HSVToRGB(UnityEngine.Random.value, 1f, 1f), Color.HSVToRGB(UnityEngine.Random.value, 1f, 1f) };
+            _randomCycleLeft = new[] { Color.HSVToRGB(UnityEngine.Random.value, 1f, 1f), Color.HSVToRGB(UnityEngine.Random.value, 1f, 1f) };
+            _randomCycleRight = new[] { Color.HSVToRGB(UnityEngine.Random.value, 1f, 1f), Color.HSVToRGB(UnityEngine.Random.value, 1f, 1f) };
         }
     }
 }
