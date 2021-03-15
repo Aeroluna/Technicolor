@@ -5,7 +5,7 @@
 
     [HarmonyPatch(
         typeof(StandardLevelScenesTransitionSetupDataSO),
-        new Type[] { typeof(string), typeof(IDifficultyBeatmap), typeof(OverrideEnvironmentSettings), typeof(ColorScheme), typeof(GameplayModifiers), typeof(PlayerSpecificSettings), typeof(PracticeSettings), typeof(string), typeof(bool) })]
+        new Type[] { typeof(string), typeof(IDifficultyBeatmap), typeof(IPreviewBeatmapLevel), typeof(OverrideEnvironmentSettings), typeof(ColorScheme), typeof(GameplayModifiers), typeof(PlayerSpecificSettings), typeof(PracticeSettings), typeof(string), typeof(bool) })]
     [HarmonyPatch("Init")]
     [HarmonyAfter(new string[] { "com.noodle.BeatSaber.ChromaCore" })]
     internal static class StandardLevelScenesTransitionSetupDataSOInit
