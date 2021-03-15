@@ -13,9 +13,7 @@
     {
         private static readonly FieldAccessor<LightWithIdManager, List<ILightWithId>[]>.Accessor _lightsWithIdAccessor = FieldAccessor<LightWithIdManager, List<ILightWithId>[]>.GetAccessor("_lights");
 
-#pragma warning disable SA1313 // Parameter names should begin with lower-case letter
         private static bool Prefix(LightSwitchEventEffect __instance, BeatmapEventData beatmapEventData, BeatmapEventType ____event, LightWithIdManager ____lightManager)
-#pragma warning restore SA1313 // Parameter names should begin with lower-case letter
         {
             if (TechnicolorConfig.Instance.TechnicolorEnabled && beatmapEventData.type == ____event &&
                 beatmapEventData.value > 0 && beatmapEventData.value <= 7)

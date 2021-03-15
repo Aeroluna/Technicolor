@@ -13,9 +13,7 @@
         private static readonly FieldAccessor<ParticleSystemEventEffect, ParticleSystem.Particle[]>.Accessor _particlesAccessor = FieldAccessor<ParticleSystemEventEffect, ParticleSystem.Particle[]>.GetAccessor("_particles");
         private static readonly FieldAccessor<ParticleSystemEventEffect, ParticleSystem>.Accessor _particleSystemAccessor = FieldAccessor<ParticleSystemEventEffect, ParticleSystem>.GetAccessor("_particleSystem");
 
-#pragma warning disable SA1313 // Parameter names should begin with lower-case letter
         private static bool Prefix(ParticleSystemEventEffect __instance, BeatmapEventData beatmapEventData, BeatmapEventType ____colorEvent)
-#pragma warning restore SA1313 // Parameter names should begin with lower-case letter
         {
             if (TechnicolorConfig.Instance.TechnicolorEnabled && beatmapEventData.type == ____colorEvent &&
                 beatmapEventData.value > 0 && beatmapEventData.value <= 7)

@@ -56,6 +56,11 @@
                 Instance.UpdateTechnicolourEvent += Instance.RainbowLights;
             }
 
+            if (config.TechnicolorLightsStyle != TechnicolorStyle.OFF)
+            {
+                Instance.UpdateTechnicolourEvent += Instance.RainbowGradientBackground;
+            }
+
             if (config.TechnicolorBlocksStyle == TechnicolorStyle.GRADIENT)
             {
                 Instance.UpdateTechnicolourEvent += Instance.RainbowNotes;
@@ -111,6 +116,11 @@
         {
             LightColorizer.SetAllLightingColors(_gradientLeftColor, _gradientRightColor);
             LightColorizer.SetAllActiveColors();
+        }
+
+        private void RainbowGradientBackground()
+        {
+            HarmonyPatches.BloomPrePassBackgroundColorsGradientFromColorSchemeColorsStart.SetGradientColors(_gradientLeftColor, _gradientRightColor);
         }
 
         private void RainbowNotes()

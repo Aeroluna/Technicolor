@@ -86,6 +86,7 @@
     <Compile Include="HarmonyPatches\LightSwitchEventEffect.cs" />
     <Compile Include="HarmonyPatches\ColorNoteVisuals.cs" />
     <Compile Include="HarmonyPatches\BombNoteController.cs" />
+    <Compile Include="HarmonyPatches\BloomPrePassBackgroundColorsGradientFromColorSchemeColors.cs" />
     <Compile Include="HarmonyPatches\ObstacleController.cs" />
     <Compile Include="HarmonyPatches\ParticleSystemEventEffect.cs" />
     <Compile Include="HarmonyPatches\ScenesTransition\MissionLevelScenesTransitionSetupDataSO.cs" />
