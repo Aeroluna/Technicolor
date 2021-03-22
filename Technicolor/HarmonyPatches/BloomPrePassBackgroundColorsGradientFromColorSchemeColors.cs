@@ -13,7 +13,7 @@
 
         internal static void SetGradientColors(Color colorLeft, Color colorRight)
         {
-            if (_bloomPrePassBackgroundColorsGradient != null) 
+            if (_bloomPrePassBackgroundColorsGradient != null)
             {
                 _bloomPrePassBackgroundColorsGradient.elements[0].color = colorLeft * _groundColorIntensity;
                 _bloomPrePassBackgroundColorsGradient.elements[1].color = colorLeft * _groundColorIntensity;
