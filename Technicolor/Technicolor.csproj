@@ -57,7 +57,7 @@
       <HintPath>$(BeatSaberDir)\Plugins\BSML.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Chroma, Version=2.3.2.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Chroma, Version=2.4.4, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(BeatSaberDir)\Plugins\Chroma.dll</HintPath>
       <Private>False</Private>
