@@ -50,6 +50,7 @@
         public void OnEnable()
         {
             _harmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
+            BSMLSettings.instance.AddSettingsMenu("Technicolor", "Technicolor.Settings.settings.bsml", TechnicolorSettingsUI.instance);
             GameplaySetup.instance.AddTab("Technicolor", "Technicolor.Settings.modifiers.bsml", TechnicolorSettingsUI.instance);
             SceneManager.activeSceneChanged += OnActiveSceneChanged;
         }
@@ -58,17 +59,13 @@
         public void OnDisable()
         {
             _harmonyInstance.UnpatchAll(HARMONYID);
+            BSMLSettings.instance.RemoveSettingsMenu(TechnicolorSettingsUI.instance);
             GameplaySetup.instance.RemoveTab("Technicolor");
             SceneManager.activeSceneChanged -= OnActiveSceneChanged;
         }
 
         public void OnActiveSceneChanged(Scene prevScene, Scene scene)
         {
-            if (scene.name == "MenuViewControllers" && prevScene.name == "EmptyTransition")
-            {
-                BSMLSettings.instance.AddSettingsMenu("Technicolor", "Technicolor.Settings.settings.bsml", TechnicolorSettingsUI.instance);
-            }
-
             TechnicolorController.ResetRandom();
         }
     }
