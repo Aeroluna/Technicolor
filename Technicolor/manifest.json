@@ -5,10 +5,10 @@
   "gameVersion": "1.16.1",
   "id": "Technicolor",
   "name": "Technicolor",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "dependsOn": {
     "BeatSaberMarkupLanguage": "^1.5.3",
-    "Chroma": "^2.4.4",
+    "Chroma": "^2.4.5",
     "BSIPA": "^4.1.6"
   }
 }
