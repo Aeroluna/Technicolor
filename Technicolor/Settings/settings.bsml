@@ -1,5 +1,4 @@
-﻿<bg xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
-  <settings-container>
+﻿<settings-container xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd">
     <bool-setting text='Technicolor' value='technicolor' hover-hint='Enable/Disable Technicolor. See Technicolor options below.'></bool-setting>
     <dropdown-list-setting text='Lights Grouping' value='lightsgroup' options='lightsgroupchoices' formatter='techgroupform' hover-hint='Isolated Event for better performance, but more chaotic lighting'></dropdown-list-setting>
     <list-setting text='Lights Frequency' value='lightsfreq' choices='lightsfreqchoices' hover-hint='The higher the frequency, the more color changes.  10% is default.' formatter='percentfreq'></list-setting>
@@ -21,5 +20,4 @@
         <clickable-text text='&#60; Back' align='Left' click-event='back' />
       </settings-container>
     </settings-submenu>
-  </settings-container>
-</bg>
+</settings-container>
