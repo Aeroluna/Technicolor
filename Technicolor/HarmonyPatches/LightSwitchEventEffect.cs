@@ -37,16 +37,12 @@
                     switch (TechnicolorConfig.Instance.TechnicolorLightsGrouping)
                     {
                         case TechnicolorLightsGrouping.ISOLATED_GROUP:
-                            // ternary operator gore
-                            ____event.SetLightingColors(
-                                blue ? (Color?)TechnicolorController.GetTechnicolor(false, beatmapEventData.time, TechnicolorConfig.Instance.TechnicolorLightsStyle) : null,
-                                blue ? null : (Color?)TechnicolorController.GetTechnicolor(true, beatmapEventData.time, TechnicolorConfig.Instance.TechnicolorLightsStyle));
+                            ____event.ColorizeLight(false, TechnicolorController.GetTechnicolor(true, beatmapEventData.time, TechnicolorConfig.Instance.TechnicolorLightsStyle));
                             break;
 
                         case TechnicolorLightsGrouping.STANDARD:
                         default:
-                            Color? t = TechnicolorController.GetTechnicolor(!blue, beatmapEventData.time, TechnicolorConfig.Instance.TechnicolorLightsStyle);
-                            LightColorizer.SetAllLightingColors(blue ? null : t, blue ? t : null);
+                            LightColorizer.GlobalColorize(false, TechnicolorController.GetTechnicolor(!blue, beatmapEventData.time, TechnicolorConfig.Instance.TechnicolorLightsStyle));
                             break;
                     }
                 }

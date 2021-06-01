@@ -114,8 +114,7 @@
 
         private void RainbowLights()
         {
-            LightColorizer.SetAllLightingColors(_gradientLeftColor, _gradientRightColor);
-            LightColorizer.SetAllActiveColors();
+            LightColorizer.GlobalColorize(true, _gradientLeftColor, _gradientRightColor);
         }
 
         private void RainbowGradientBackground()
@@ -125,24 +124,24 @@
 
         private void RainbowNotes()
         {
-            NoteColorizer.SetAllNoteColors(_gradientLeftColor, _gradientRightColor);
-            NoteColorizer.SetAllActiveColors();
+            NoteColorizer.GlobalColorize(_gradientLeftColor, ColorType.ColorA);
+            NoteColorizer.GlobalColorize(_gradientRightColor, ColorType.ColorB);
         }
 
         private void RainbowWalls()
         {
-            ObstacleColorizer.SetAllObstacleColors(_gradientColor);
-            ObstacleColorizer.SetAllActiveColors();
+            ObstacleColorizer.GlobalColorize(_gradientColor);
         }
 
         private void RainbowBombs()
         {
-            BombColorizer.SetAllBombColors(_gradientColor);
+            BombColorizer.GlobalColorize(_gradientColor);
         }
 
         private void RainbowSabers()
         {
-            SaberColorizer.SetAllSaberColors(_rainbowSaberColors[0], _rainbowSaberColors[1]);
+            SaberColorizer.GlobalColorize(_rainbowSaberColors[0], SaberType.SaberA);
+            SaberColorizer.GlobalColorize(_rainbowSaberColors[1], SaberType.SaberB);
         }
 
         /*

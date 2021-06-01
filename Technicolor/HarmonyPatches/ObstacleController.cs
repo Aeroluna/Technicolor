@@ -8,9 +8,9 @@
     [TechniPatch(TechniPatchType.OBSTACLES)]
     internal class ObstacleControllerInit
     {
-        private static void Prefix(ObstacleController __instance, ObstacleData obstacleData)
+        private static void Postfix(ObstacleController __instance, ObstacleData obstacleData)
         {
-            __instance.SetObstacleColor(TechnicolorController.GetTechnicolor(true, obstacleData.time + __instance.GetInstanceID(), TechnicolorConfig.Instance.TechnicolorWallsStyle));
+            __instance.ColorizeObstacle(TechnicolorController.GetTechnicolor(true, obstacleData.time + __instance.GetInstanceID(), TechnicolorConfig.Instance.TechnicolorWallsStyle));
         }
     }
 }
