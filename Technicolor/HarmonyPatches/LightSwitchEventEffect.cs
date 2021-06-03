@@ -33,16 +33,18 @@
                 }
                 else if (TechnicolorController.TechniLightRandom.NextDouble() < TechnicolorConfig.Instance.TechnicolorLightsFrequency)
                 {
-                    bool blue = beatmapEventData.value <= 3;
+                    Color color;
                     switch (TechnicolorConfig.Instance.TechnicolorLightsGrouping)
                     {
                         case TechnicolorLightsGrouping.ISOLATED_GROUP:
-                            ____event.ColorizeLight(false, TechnicolorController.GetTechnicolor(true, beatmapEventData.time, TechnicolorConfig.Instance.TechnicolorLightsStyle));
+                            color = TechnicolorController.GetTechnicolor(true, beatmapEventData.time, TechnicolorConfig.Instance.TechnicolorLightsStyle);
+                            ____event.ColorizeLight(false, color, color, color, color);
                             break;
 
                         case TechnicolorLightsGrouping.STANDARD:
                         default:
-                            LightColorizer.GlobalColorize(false, TechnicolorController.GetTechnicolor(!blue, beatmapEventData.time, TechnicolorConfig.Instance.TechnicolorLightsStyle));
+                            color = TechnicolorController.GetTechnicolor(beatmapEventData.value > 3, beatmapEventData.time, TechnicolorConfig.Instance.TechnicolorLightsStyle);
+                            LightColorizer.GlobalColorize(false, color, color, color, color);
                             break;
                     }
                 }

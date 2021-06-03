@@ -37,7 +37,7 @@
                 if (_instance == null)
                 {
                     TechnicolorConfig config = TechnicolorConfig.Instance;
-                    GameObject gameObject = new GameObject("Chroma_TechnicolourController");
+                    GameObject gameObject = new GameObject("Chroma_TechnicolorController");
                     _instance = gameObject.AddComponent<GradientController>();
 
                     _instance._match = config.Desync;

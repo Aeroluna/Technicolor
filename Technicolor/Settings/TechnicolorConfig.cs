@@ -21,5 +21,7 @@
         public TechnicolorStyle TechnicolorBombsStyle { get; set; } = TechnicolorStyle.PURE_RANDOM;
 
         public bool Desync { get; set; } = false;
+
+        public bool DisableGradientBackground { get; set; } = false;
     }
 }

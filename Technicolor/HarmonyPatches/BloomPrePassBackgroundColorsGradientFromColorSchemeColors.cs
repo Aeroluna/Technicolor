@@ -13,7 +13,7 @@
 
         internal static void SetGradientColors(Color colorLeft, Color colorRight)
         {
-            if (_bloomPrePassBackgroundColorsGradient != null)
+            if (!Settings.TechnicolorConfig.Instance.DisableGradientBackground && _bloomPrePassBackgroundColorsGradient != null)
             {
                 _bloomPrePassBackgroundColorsGradient.elements[0].color = colorLeft * _groundColorIntensity;
                 _bloomPrePassBackgroundColorsGradient.elements[1].color = colorLeft * _groundColorIntensity;
@@ -24,9 +24,19 @@
 
         private static void Postfix(BloomPrePassBackgroundColorsGradient ____bloomPrePassBackgroundColorsGradient, float ____skyColorIntensity, float ____groundColorIntensity)
         {
-            _bloomPrePassBackgroundColorsGradient = ____bloomPrePassBackgroundColorsGradient;
-            _skyColorIntensity = ____skyColorIntensity;
-            _groundColorIntensity = ____groundColorIntensity;
+            if (Settings.TechnicolorConfig.Instance.DisableGradientBackground)
+            {
+                ____bloomPrePassBackgroundColorsGradient.elements[0].color = Color.black;
+                ____bloomPrePassBackgroundColorsGradient.elements[1].color = Color.black;
+                ____bloomPrePassBackgroundColorsGradient.elements[5].color = Color.black;
+                ____bloomPrePassBackgroundColorsGradient.UpdateGradientTexture();
+            }
+            else
+            {
+                _bloomPrePassBackgroundColorsGradient = ____bloomPrePassBackgroundColorsGradient;
+                _skyColorIntensity = ____skyColorIntensity;
+                _groundColorIntensity = ____groundColorIntensity;
+            }
         }
     }
 }

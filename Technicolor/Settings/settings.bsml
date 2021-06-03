@@ -3,6 +3,7 @@
     <dropdown-list-setting text='Lights Grouping' value='lightsgroup' options='lightsgroupchoices' formatter='techgroupform' hover-hint='Isolated Event for better performance, but more chaotic lighting'></dropdown-list-setting>
     <list-setting text='Lights Frequency' value='lightsfreq' choices='lightsfreqchoices' hover-hint='The higher the frequency, the more color changes.  10% is default.' formatter='percentfreq'></list-setting>
     <bool-setting text='Desync Left/Right' value='desync' hover-hint='If true, technicolor styles that shift between colors (Gradient) will desync left/right colors.'></bool-setting>
+	<bool-setting text='Disable Gradient Background' value='disablegradient' hover-hint='Disables the incredibly ugly gradient background.'></bool-setting>
 
     <!--Technicolor Styles get their own submenu until scrollable-settings-container is fixed-->
     <!--Some yoinked from Particle Overdrive-->

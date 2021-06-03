@@ -84,6 +84,13 @@
             set => TechnicolorConfig.Instance.Desync = !value;
         }
 
+        [UIValue("disablegradient")]
+        public bool DisableGradientBackground
+        {
+            get => TechnicolorConfig.Instance.DisableGradientBackground;
+            set => TechnicolorConfig.Instance.DisableGradientBackground = value;
+        }
+
 #pragma warning disable IDE0051 // Remove unused private members
         [UIAction("techlightform")]
         private string TechlightFormat(TechnicolorStyle t)
