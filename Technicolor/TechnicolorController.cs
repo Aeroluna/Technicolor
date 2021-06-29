@@ -10,12 +10,12 @@
 
     internal static class TechnicolorController
     {
-        private static List<TechniPatchData> _lightPatches;
-        private static List<TechniPatchData> _obstaclePatches;
-        private static List<TechniPatchData> _notePatches;
-        private static List<TechniPatchData> _bombPatches;
+        private static List<TechniPatchData>? _lightPatches;
+        private static List<TechniPatchData>? _obstaclePatches;
+        private static List<TechniPatchData>? _notePatches;
+        private static List<TechniPatchData>? _bombPatches;
 
-        private static IDictionary<TechniPatchType, Harmony> _techniPatchInstances;
+        private static IDictionary<TechniPatchType, Harmony>? _techniPatchInstances;
 
         internal static Color[] TechnicolorWarmPalette { get; } = new Color[4] { new Color(1, 0, 0), new Color(1, 0, 1), new Color(1, 0.6f, 0), new Color(1, 0, 0.4f) };
 
@@ -46,7 +46,7 @@
             {
                 if (!Harmony.HasAnyPatches(HARMONYID + Enum.GetName(typeof(TechniPatchType), patchType)))
                 {
-                    List<TechniPatchData> list = null;
+                    List<TechniPatchData>? list = null;
                     switch (patchType)
                     {
                         case TechniPatchType.LIGHTS:
@@ -68,7 +68,7 @@
 
                     if (list != null)
                     {
-                        Harmony harmony = _techniPatchInstances[patchType];
+                        Harmony harmony = _techniPatchInstances![patchType];
                         list.ForEach(n => harmony.Patch(
                             n.OriginalMethod,
                             n.Prefix != null ? new HarmonyMethod(n.Prefix) : null,
@@ -79,11 +79,11 @@
             }
             else
             {
-                _techniPatchInstances[patchType].UnpatchAll(HARMONYID + Enum.GetName(typeof(TechniPatchType), patchType));
+                _techniPatchInstances![patchType].UnpatchAll(HARMONYID + Enum.GetName(typeof(TechniPatchType), patchType));
             }
         }
 
-        internal static void InitPatchType(ref List<TechniPatchData> patchDatas, TechniPatchType patchType)
+        internal static void InitPatchType(ref List<TechniPatchData>? patchDatas, TechniPatchType patchType)
         {
             if (patchDatas == null)
             {
@@ -93,7 +93,7 @@
                     IEnumerable<object> attributes = type.GetCustomAttributes(typeof(TechniPatch), true);
                     if (attributes.Count() > 0)
                     {
-                        Type declaringType = null;
+                        Type? declaringType = null;
                         List<string> methodNames = new List<string>();
                         TechniPatchType? patchPatchType = null;
                         foreach (TechniPatch n in attributes)

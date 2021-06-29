@@ -56,8 +56,8 @@
 
         internal TechniPatchType? PatchType { get; }
 
-        internal Type DeclaringType { get; }
+        internal Type? DeclaringType { get; }
 
-        internal string MethodName { get; }
+        internal string? MethodName { get; }
     }
 }

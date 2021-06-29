@@ -2,7 +2,7 @@
 {
     public class TechnicolorConfig
     {
-        public static TechnicolorConfig Instance { get; set; }
+        public static TechnicolorConfig? Instance { get; set; }
 
         public bool TechnicolorEnabled { get; set; } = true;
 

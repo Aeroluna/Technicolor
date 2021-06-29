@@ -7,7 +7,7 @@
 
     internal class GradientController : MonoBehaviour
     {
-        private static GradientController _instance;
+        private static GradientController? _instance;
 
         private readonly Color?[] _rainbowSaberColors = new Color?[] { null, null };
 
@@ -20,15 +20,15 @@
         private bool _match;
         private float _mismatchSpeedOffset = 0;
 
-        private Color[] _leftSaberPalette;
-        private Color[] _rightSaberPalette;
+        private Color[]? _leftSaberPalette;
+        private Color[]? _rightSaberPalette;
 
         private float _lastTime = 0;
         private float _h = 0;
         private Color[] _randomCycleLeft = new Color[2];
         private Color[] _randomCycleRight = new Color[2];
 
-        private event Action UpdateTechnicolourEvent;
+        private event Action? UpdateTechnicolourEvent;
 
         internal static GradientController Instance
         {
@@ -36,7 +36,7 @@
             {
                 if (_instance == null)
                 {
-                    TechnicolorConfig config = TechnicolorConfig.Instance;
+                    TechnicolorConfig config = TechnicolorConfig.Instance!;
                     GameObject gameObject = new GameObject("Chroma_TechnicolorController");
                     _instance = gameObject.AddComponent<GradientController>();
 
@@ -50,7 +50,7 @@
 
         internal static void InitializeGradients()
         {
-            TechnicolorConfig config = TechnicolorConfig.Instance;
+            TechnicolorConfig config = TechnicolorConfig.Instance!;
             if (config.TechnicolorLightsStyle == TechnicolorStyle.GRADIENT)
             {
                 Instance.UpdateTechnicolourEvent += Instance.RainbowLights;
@@ -150,8 +150,8 @@
 
         private void PaletteTick()
         {
-            _rainbowSaberColors[0] = TechnicolorController.GetLerpedFromArray(_leftSaberPalette, Time.time + _mismatchSpeedOffset);
-            _rainbowSaberColors[1] = TechnicolorController.GetLerpedFromArray(_rightSaberPalette, Time.time);
+            _rainbowSaberColors[0] = TechnicolorController.GetLerpedFromArray(_leftSaberPalette!, Time.time + _mismatchSpeedOffset);
+            _rainbowSaberColors[1] = TechnicolorController.GetLerpedFromArray(_rightSaberPalette!, Time.time);
         }
 
         private void GradientTick()

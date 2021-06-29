@@ -10,7 +10,7 @@
     {
         private static void Postfix()
         {
-            TechnicolorConfig config = TechnicolorConfig.Instance;
+            TechnicolorConfig config = TechnicolorConfig.Instance!;
             if (config.TechnicolorEnabled && !ChromaController.ChromaIsActive)
             {
                 GradientController.InitializeGradients();

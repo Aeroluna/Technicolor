@@ -15,11 +15,11 @@
 
         private static bool Prefix(ParticleSystemEventEffect __instance, BeatmapEventData beatmapEventData, BeatmapEventType ____colorEvent)
         {
-            if (TechnicolorConfig.Instance.TechnicolorEnabled && beatmapEventData.type == ____colorEvent &&
+            if (TechnicolorConfig.Instance!.TechnicolorEnabled && beatmapEventData.type == ____colorEvent &&
                 beatmapEventData.value > 0 && beatmapEventData.value <= 7)
             {
-                if (TechnicolorConfig.Instance.TechnicolorLightsGrouping == TechnicolorLightsGrouping.ISOLATED &&
-                    TechnicolorController.TechniLightRandom.NextDouble() < TechnicolorConfig.Instance.TechnicolorLightsFrequency)
+                if (TechnicolorConfig.Instance!.TechnicolorLightsGrouping == TechnicolorLightsGrouping.ISOLATED &&
+                    TechnicolorController.TechniLightRandom.NextDouble() < TechnicolorConfig.Instance!.TechnicolorLightsFrequency)
                 {
                     ParticleSystem.MainModule mainmodule = _mainModuleAccessor(ref __instance);
                     ParticleSystem.Particle[] particles = _particlesAccessor(ref __instance);
