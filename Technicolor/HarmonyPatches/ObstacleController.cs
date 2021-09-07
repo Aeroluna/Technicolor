@@ -1,11 +1,12 @@
 ﻿namespace Technicolor.HarmonyPatches
 {
     using Chroma.Colorizer;
+    using Heck;
     using Technicolor.Settings;
 
-    [TechniPatch(typeof(ObstacleController))]
-    [TechniPatch("Init")]
-    [TechniPatch(TechniPatchType.OBSTACLES)]
+    [HeckPatch(typeof(ObstacleController))]
+    [HeckPatch("Init")]
+    [HeckPatch((int)TechniPatchType.OBSTACLES)]
     internal class ObstacleControllerInit
     {
         private static void Postfix(ObstacleController __instance, ObstacleData obstacleData)

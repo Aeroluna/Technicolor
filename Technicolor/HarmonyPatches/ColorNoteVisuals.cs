@@ -1,12 +1,13 @@
 ﻿namespace Technicolor.HarmonyPatches
 {
     using Chroma.Colorizer;
+    using Heck;
     using Technicolor.Settings;
     using UnityEngine;
 
-    [TechniPatch(typeof(ColorNoteVisuals))]
-    [TechniPatch("HandleNoteControllerDidInit")]
-    [TechniPatch(TechniPatchType.NOTES)]
+    [HeckPatch(typeof(ColorNoteVisuals))]
+    [HeckPatch("HandleNoteControllerDidInit")]
+    [HeckPatch((int)TechniPatchType.NOTES)]
     internal class ColorNoteVisualsHandleNoteControllerDidInitEventColorizer
     {
         private static void Postfix(NoteController noteController)

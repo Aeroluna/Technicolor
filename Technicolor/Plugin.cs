@@ -4,6 +4,7 @@
     using BeatSaberMarkupLanguage.GameplaySetup;
     using BeatSaberMarkupLanguage.Settings;
     using HarmonyLib;
+    using Heck;
     using IPA;
     using IPA.Config;
     using IPA.Config.Stores;
@@ -38,10 +39,14 @@
         internal const string HARMONYID = "com.noodle.BeatSaber.Technicolor";
         private static readonly Harmony _harmonyInstance = new Harmony(HARMONYID);
 
+#pragma warning disable CS8618
+        internal static HeckLogger Logger { get; private set; }
+#pragma warning restore CS8618
+
         [Init]
-        public void Init(IPALogger logger, Config config)
+        public void Init(IPALogger pluginLogger, Config config)
         {
-            TechniLogger.IPAlogger = logger;
+            Logger = new HeckLogger(pluginLogger);
             TechnicolorConfig.Instance = config.Generated<TechnicolorConfig>();
             TechnicolorController.InitTechniPatches();
         }

@@ -1,10 +1,11 @@
 ﻿namespace Technicolor.HarmonyPatches
 {
+    using Heck;
     using UnityEngine;
 
-    [TechniPatch(typeof(BloomPrePassBackgroundColorsGradientFromColorSchemeColors))]
-    [TechniPatch("Start")]
-    [TechniPatch(TechniPatchType.LIGHTS)]
+    [HeckPatch(typeof(BloomPrePassBackgroundColorsGradientFromColorSchemeColors))]
+    [HeckPatch("Start")]
+    [HeckPatch((int)TechniPatchType.LIGHTS)]
     internal class BloomPrePassBackgroundColorsGradientFromColorSchemeColorsStart
     {
         private static BloomPrePassBackgroundColorsGradient? _bloomPrePassBackgroundColorsGradient;

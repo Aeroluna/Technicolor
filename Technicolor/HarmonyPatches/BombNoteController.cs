@@ -1,11 +1,12 @@
 ﻿namespace Technicolor.HarmonyPatches
 {
     using Chroma.Colorizer;
+    using Heck;
     using Technicolor.Settings;
 
-    [TechniPatch(typeof(BombNoteController))]
-    [TechniPatch("Init")]
-    [TechniPatch(TechniPatchType.BOMBS)]
+    [HeckPatch(typeof(BombNoteController))]
+    [HeckPatch("Init")]
+    [HeckPatch((int)TechniPatchType.BOMBS)]
     internal class BombControllerInit
     {
         private static void Postfix(BombNoteController __instance, NoteData noteData)

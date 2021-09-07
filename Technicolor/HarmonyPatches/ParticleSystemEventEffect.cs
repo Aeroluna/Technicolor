@@ -1,12 +1,13 @@
 ﻿namespace Technicolor.HarmonyPatches
 {
+    using Heck;
     using IPA.Utilities;
     using Technicolor.Settings;
     using UnityEngine;
 
-    [TechniPatch(typeof(ParticleSystemEventEffect))]
-    [TechniPatch("HandleBeatmapObjectCallbackControllerBeatmapEventDidTrigger")]
-    [TechniPatch(TechniPatchType.LIGHTS)]
+    [HeckPatch(typeof(ParticleSystemEventEffect))]
+    [HeckPatch("HandleBeatmapObjectCallbackControllerBeatmapEventDidTrigger")]
+    [HeckPatch((int)TechniPatchType.LIGHTS)]
     internal class ParticleSystemEventEffectHandleBeatmapObjectCallbackControllerBeatmapEventDidTrigger
     {
         private static readonly FieldAccessor<ParticleSystemEventEffect, ParticleSystem.MainModule>.Accessor _mainModuleAccessor = FieldAccessor<ParticleSystemEventEffect, ParticleSystem.MainModule>.GetAccessor("_mainModule");

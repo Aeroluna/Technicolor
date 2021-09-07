@@ -2,13 +2,14 @@
 {
     using System.Collections.Generic;
     using Chroma.Colorizer;
+    using Heck;
     using IPA.Utilities;
     using Technicolor.Settings;
     using UnityEngine;
 
-    [TechniPatch(typeof(LightSwitchEventEffect))]
-    [TechniPatch("HandleBeatmapObjectCallbackControllerBeatmapEventDidTrigger")]
-    [TechniPatch(TechniPatchType.LIGHTS)]
+    [HeckPatch(typeof(LightSwitchEventEffect))]
+    [HeckPatch("HandleBeatmapObjectCallbackControllerBeatmapEventDidTrigger")]
+    [HeckPatch((int)TechniPatchType.LIGHTS)]
     internal static class LightSwitchEventEffectHandleBeatmapObjectCallbackControllerBeatmapEventDidTrigger
     {
         private static readonly FieldAccessor<LightWithIdManager, List<ILightWithId>[]>.Accessor _lightsWithIdAccessor = FieldAccessor<LightWithIdManager, List<ILightWithId>[]>.GetAccessor("_lights");
