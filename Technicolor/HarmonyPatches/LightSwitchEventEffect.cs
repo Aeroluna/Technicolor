@@ -16,7 +16,7 @@
 
         private static bool Prefix(LightSwitchEventEffect __instance, BeatmapEventData beatmapEventData, BeatmapEventType ____event, LightWithIdManager ____lightManager)
         {
-            if (TechnicolorConfig.Instance!.TechnicolorEnabled && beatmapEventData.type == ____event &&
+            if (TechnicolorConfig.Instance.TechnicolorEnabled && beatmapEventData.type == ____event &&
                 beatmapEventData.value > 0 && beatmapEventData.value <= 7)
             {
                 if (TechnicolorConfig.Instance.TechnicolorLightsGrouping == TechnicolorLightsGrouping.ISOLATED)

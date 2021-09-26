@@ -8,35 +8,48 @@
     [HeckPatch((int)TechniPatchType.LIGHTS)]
     internal class BloomPrePassBackgroundColorsGradientFromColorSchemeColorsStart
     {
+        private static BloomPrePassBackgroundColorsGradientFromColorSchemeColors.Element[]? _elements;
         private static BloomPrePassBackgroundColorsGradient? _bloomPrePassBackgroundColorsGradient;
-        private static float _skyColorIntensity = 0.1f;
-        private static float _groundColorIntensity = 0.1f;
 
         internal static void SetGradientColors(Color colorLeft, Color colorRight)
         {
-            if (!Settings.TechnicolorConfig.Instance!.DisableGradientBackground && _bloomPrePassBackgroundColorsGradient != null)
+            if (_bloomPrePassBackgroundColorsGradient != null && _elements != null)
             {
-                _bloomPrePassBackgroundColorsGradient.elements[0].color = colorLeft * _groundColorIntensity;
-                _bloomPrePassBackgroundColorsGradient.elements[1].color = colorLeft * _groundColorIntensity;
-                _bloomPrePassBackgroundColorsGradient.elements[5].color = colorRight * _skyColorIntensity;
+                int num = 0;
+                while (num < _bloomPrePassBackgroundColorsGradient.elements.Length && num < _elements.Length)
+                {
+                    if (_elements[num].loadFromColorScheme)
+                    {
+                        switch (_elements[num].environmentColor)
+                        {
+                            case BloomPrePassBackgroundColorsGradientFromColorSchemeColors.EnvironmentColor.Color0:
+                            case BloomPrePassBackgroundColorsGradientFromColorSchemeColors.EnvironmentColor.Color0Boost:
+                                _elements[num].color = colorLeft * _elements[num].intensity;
+                                break;
+
+                            case BloomPrePassBackgroundColorsGradientFromColorSchemeColors.EnvironmentColor.Color1:
+                            case BloomPrePassBackgroundColorsGradientFromColorSchemeColors.EnvironmentColor.Color1Boost:
+                                _elements[num].color = colorRight * _elements[num].intensity;
+                                break;
+                        }
+                    }
+
+                    _bloomPrePassBackgroundColorsGradient.elements[num].color = _elements[num].color;
+                    num++;
+                }
+
                 _bloomPrePassBackgroundColorsGradient.UpdateGradientTexture();
             }
         }
 
-        private static void Postfix(BloomPrePassBackgroundColorsGradient ____bloomPrePassBackgroundColorsGradient, float ____skyColorIntensity, float ____groundColorIntensity)
+        private static void Postfix(BloomPrePassBackgroundColorsGradient ____bloomPrePassBackgroundColorsGradient, BloomPrePassBackgroundColorsGradientFromColorSchemeColors.Element[] ____elements)
         {
-            if (Settings.TechnicolorConfig.Instance!.DisableGradientBackground)
+            _bloomPrePassBackgroundColorsGradient = ____bloomPrePassBackgroundColorsGradient;
+            _elements = ____elements;
+
+            if (Settings.TechnicolorConfig.Instance.DisableGradientBackground)
             {
-                ____bloomPrePassBackgroundColorsGradient.elements[0].color = Color.black;
-                ____bloomPrePassBackgroundColorsGradient.elements[1].color = Color.black;
-                ____bloomPrePassBackgroundColorsGradient.elements[5].color = Color.black;
-                ____bloomPrePassBackgroundColorsGradient.UpdateGradientTexture();
-            }
-            else
-            {
-                _bloomPrePassBackgroundColorsGradient = ____bloomPrePassBackgroundColorsGradient;
-                _skyColorIntensity = ____skyColorIntensity;
-                _groundColorIntensity = ____groundColorIntensity;
+                SetGradientColors(Color.black, Color.black);
             }
         }
     }

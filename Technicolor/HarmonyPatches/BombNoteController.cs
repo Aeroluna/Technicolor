@@ -11,7 +11,7 @@
     {
         private static void Postfix(BombNoteController __instance, NoteData noteData)
         {
-            __instance.ColorizeBomb(TechnicolorController.GetTechnicolor(true, noteData.time + __instance.GetInstanceID(), TechnicolorConfig.Instance!.TechnicolorBombsStyle));
+            __instance.ColorizeBomb(TechnicolorController.GetTechnicolor(true, noteData.time + __instance.GetInstanceID(), TechnicolorConfig.Instance.TechnicolorBombsStyle));
         }
     }
 }

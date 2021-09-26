@@ -2,7 +2,13 @@
 {
     public class TechnicolorConfig
     {
-        public static TechnicolorConfig? Instance { get; set; }
+        private static TechnicolorConfig? _instance;
+
+        public static TechnicolorConfig Instance
+        {
+            get => _instance ?? throw new System.InvalidOperationException("TechnicolorConfig instance not yet created.");
+            set => _instance = value;
+        }
 
         public bool TechnicolorEnabled { get; set; } = true;
 

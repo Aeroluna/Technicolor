@@ -24,71 +24,71 @@
         [UIValue("technicolor")]
         public bool TechnicolorEnabled
         {
-            get => TechnicolorConfig.Instance!.TechnicolorEnabled;
-            set => TechnicolorConfig.Instance!.TechnicolorEnabled = value;
+            get => TechnicolorConfig.Instance.TechnicolorEnabled;
+            set => TechnicolorConfig.Instance.TechnicolorEnabled = value;
         }
 
         [UIValue("techlights")]
         public TechnicolorStyle TechnicolorLightsStyle
         {
-            get => TechnicolorConfig.Instance!.TechnicolorLightsStyle;
-            set => TechnicolorConfig.Instance!.TechnicolorLightsStyle = value;
+            get => TechnicolorConfig.Instance.TechnicolorLightsStyle;
+            set => TechnicolorConfig.Instance.TechnicolorLightsStyle = value;
         }
 
         [UIValue("lightsgroup")]
         public TechnicolorLightsGrouping TechnicolorLightsGroup
         {
-            get => TechnicolorConfig.Instance!.TechnicolorLightsGrouping;
-            set => TechnicolorConfig.Instance!.TechnicolorLightsGrouping = value;
+            get => TechnicolorConfig.Instance.TechnicolorLightsGrouping;
+            set => TechnicolorConfig.Instance.TechnicolorLightsGrouping = value;
         }
 
         [UIValue("lightsfreq")]
         public float TechnicolorLightsFrequency
         {
-            get => TechnicolorConfig.Instance!.TechnicolorLightsFrequency;
-            set => TechnicolorConfig.Instance!.TechnicolorLightsFrequency = value;
+            get => TechnicolorConfig.Instance.TechnicolorLightsFrequency;
+            set => TechnicolorConfig.Instance.TechnicolorLightsFrequency = value;
         }
 
         [UIValue("techbarriers")]
         public TechnicolorStyle TechnicolorWallsStyle
         {
-            get => TechnicolorConfig.Instance!.TechnicolorWallsStyle;
-            set => TechnicolorConfig.Instance!.TechnicolorWallsStyle = value;
+            get => TechnicolorConfig.Instance.TechnicolorWallsStyle;
+            set => TechnicolorConfig.Instance.TechnicolorWallsStyle = value;
         }
 
         [UIValue("techbombs")]
         public TechnicolorStyle TechnicolorBombsStyle
         {
-            get => TechnicolorConfig.Instance!.TechnicolorBombsStyle;
-            set => TechnicolorConfig.Instance!.TechnicolorBombsStyle = value;
+            get => TechnicolorConfig.Instance.TechnicolorBombsStyle;
+            set => TechnicolorConfig.Instance.TechnicolorBombsStyle = value;
         }
 
         [UIValue("technotes")]
         public TechnicolorStyle TechnicolorBlocksStyle
         {
-            get => TechnicolorConfig.Instance!.TechnicolorBlocksStyle;
-            set => TechnicolorConfig.Instance!.TechnicolorBlocksStyle = value;
+            get => TechnicolorConfig.Instance.TechnicolorBlocksStyle;
+            set => TechnicolorConfig.Instance.TechnicolorBlocksStyle = value;
         }
 
         [UIValue("techsabers")]
         public TechnicolorStyle TechnicolorSabersStyle
         {
-            get => TechnicolorConfig.Instance!.TechnicolorSabersStyle;
-            set => TechnicolorConfig.Instance!.TechnicolorSabersStyle = value;
+            get => TechnicolorConfig.Instance.TechnicolorSabersStyle;
+            set => TechnicolorConfig.Instance.TechnicolorSabersStyle = value;
         }
 
         [UIValue("desync")]
         public bool Desync
         {
-            get => !TechnicolorConfig.Instance!.Desync;
-            set => TechnicolorConfig.Instance!.Desync = !value;
+            get => !TechnicolorConfig.Instance.Desync;
+            set => TechnicolorConfig.Instance.Desync = !value;
         }
 
         [UIValue("disablegradient")]
         public bool DisableGradientBackground
         {
-            get => TechnicolorConfig.Instance!.DisableGradientBackground;
-            set => TechnicolorConfig.Instance!.DisableGradientBackground = value;
+            get => TechnicolorConfig.Instance.DisableGradientBackground;
+            set => TechnicolorConfig.Instance.DisableGradientBackground = value;
         }
 
 #pragma warning disable IDE0051 // Remove unused private members

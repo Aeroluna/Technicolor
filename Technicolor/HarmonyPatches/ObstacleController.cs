@@ -11,7 +11,7 @@
     {
         private static void Postfix(ObstacleController __instance, ObstacleData obstacleData)
         {
-            __instance.ColorizeObstacle(TechnicolorController.GetTechnicolor(true, obstacleData.time + __instance.GetInstanceID(), TechnicolorConfig.Instance!.TechnicolorWallsStyle));
+            __instance.ColorizeObstacle(TechnicolorController.GetTechnicolor(true, obstacleData.time + __instance.GetInstanceID(), TechnicolorConfig.Instance.TechnicolorWallsStyle));
         }
     }
 }

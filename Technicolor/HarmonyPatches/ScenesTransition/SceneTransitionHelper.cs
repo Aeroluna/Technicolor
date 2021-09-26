@@ -7,7 +7,7 @@
     {
         internal static void Patch()
         {
-            TechnicolorConfig config = TechnicolorConfig.Instance!;
+            TechnicolorConfig config = TechnicolorConfig.Instance;
             if (config.TechnicolorEnabled && !ChromaController.ChromaIsActive)
             {
                 TechnicolorController.ToggleTechniPatches(config.TechnicolorLightsStyle != TechnicolorStyle.GRADIENT && config.TechnicolorLightsStyle != TechnicolorStyle.OFF, TechniPatchType.LIGHTS);

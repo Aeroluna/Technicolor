@@ -36,11 +36,10 @@
             {
                 if (_instance == null)
                 {
-                    TechnicolorConfig config = TechnicolorConfig.Instance!;
                     GameObject gameObject = new GameObject("Chroma_TechnicolorController");
                     _instance = gameObject.AddComponent<GradientController>();
 
-                    _instance._match = config.Desync;
+                    _instance._match = TechnicolorConfig.Instance.Desync;
                     _instance._mismatchSpeedOffset = _instance._match ? 0 : 0.5f;
                 }
 
@@ -50,13 +49,13 @@
 
         internal static void InitializeGradients()
         {
-            TechnicolorConfig config = TechnicolorConfig.Instance!;
+            TechnicolorConfig config = TechnicolorConfig.Instance;
             if (config.TechnicolorLightsStyle == TechnicolorStyle.GRADIENT)
             {
                 Instance.UpdateTechnicolourEvent += Instance.RainbowLights;
             }
 
-            if (config.TechnicolorLightsStyle != TechnicolorStyle.OFF)
+            if (config.TechnicolorLightsStyle != TechnicolorStyle.OFF && !config.DisableGradientBackground)
             {
                 Instance.UpdateTechnicolourEvent += Instance.RainbowGradientBackground;
             }
