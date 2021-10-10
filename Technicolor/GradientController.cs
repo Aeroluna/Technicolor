@@ -47,6 +47,14 @@
             }
         }
 
+        private float TimeMult => TechnicolorConfig.Instance.TechnicolorLightsFrequency;
+
+        private float TimeGlobalMult => (TechnicolorConfig.Instance.TechnicolorLightsFrequency / 2) + 0.7f;
+
+        private Color[] LeftSaberPalette => _leftSaberPalette ?? throw new InvalidOperationException($"[{nameof(_leftSaberPalette)}] was null.");
+
+        private Color[] RightSaberPalette => _rightSaberPalette ?? throw new InvalidOperationException($"[{nameof(_rightSaberPalette)}] was null.");
+
         internal static void InitializeGradients()
         {
             TechnicolorConfig config = TechnicolorConfig.Instance;
@@ -102,18 +110,34 @@
 
         private void Update()
         {
-            float timeMult = 0.1f;
-            float timeGlobalMult = 0.2f;
-            _gradientColor = Color.HSVToRGB(Mathf.Repeat(Time.time * timeGlobalMult, 1f), 1f, 1f);
-            _gradientLeftColor = Color.HSVToRGB(Mathf.Repeat((Time.time * timeMult) + _mismatchSpeedOffset, 1f), 1f, 1f);
-            _gradientRightColor = Color.HSVToRGB(Mathf.Repeat(Time.time * timeMult, 1f), 1f, 1f);
+            _gradientColor = Color.HSVToRGB(Mathf.Repeat(Time.time * TimeGlobalMult, 1f), 1f, 1f);
+            _gradientLeftColor = Color.HSVToRGB(Mathf.Repeat((Time.time * TimeMult) + _mismatchSpeedOffset, 1f), 1f, 1f);
+            _gradientRightColor = Color.HSVToRGB(Mathf.Repeat(Time.time * TimeMult, 1f), 1f, 1f);
 
             UpdateTechnicolourEvent?.Invoke();
         }
 
         private void RainbowLights()
         {
-            LightColorizer.GlobalColorize(true, _gradientLeftColor, _gradientRightColor);
+            if (TechnicolorConfig.Instance.TechnicolorLightsGrouping == TechnicolorLightsGrouping.ISOLATED)
+            {
+                LightColorizer.GlobalColorize(false, _gradientLeftColor, _gradientRightColor, _gradientLeftColor, _gradientRightColor);
+                foreach (LightColorizer lightColorizer in LightColorizer.Colorizers.Values)
+                {
+                    foreach (ILightWithId light in lightColorizer.Lights)
+                    {
+                        float seed = Math.Abs(light.GetHashCode()) % 1000;
+                        seed *= 0.001f;
+                        Color colorLeft = Color.HSVToRGB(Mathf.Repeat((Time.time * TimeMult) + _mismatchSpeedOffset + seed, 1f), 1f, 1f);
+                        Color colorRight = Color.HSVToRGB(Mathf.Repeat((Time.time * TimeMult) + seed, 1f), 1f, 1f);
+                        lightColorizer.Colorize(new ILightWithId[] { light }, colorLeft, colorRight, colorLeft, colorRight);
+                    }
+                }
+            }
+            else
+            {
+                LightColorizer.GlobalColorize(true, _gradientLeftColor, _gradientRightColor, _gradientLeftColor, _gradientRightColor);
+            }
         }
 
         private void RainbowGradientBackground()
@@ -149,8 +173,8 @@
 
         private void PaletteTick()
         {
-            _rainbowSaberColors[0] = TechnicolorController.GetLerpedFromArray(_leftSaberPalette!, Time.time + _mismatchSpeedOffset);
-            _rainbowSaberColors[1] = TechnicolorController.GetLerpedFromArray(_rightSaberPalette!, Time.time);
+            _rainbowSaberColors[0] = TechnicolorController.GetLerpedFromArray(LeftSaberPalette, Time.time + _mismatchSpeedOffset);
+            _rainbowSaberColors[1] = TechnicolorController.GetLerpedFromArray(RightSaberPalette, Time.time);
         }
 
         private void GradientTick()

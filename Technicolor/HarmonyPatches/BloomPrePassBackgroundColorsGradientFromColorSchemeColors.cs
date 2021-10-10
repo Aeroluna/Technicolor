@@ -5,7 +5,7 @@
 
     [HeckPatch(typeof(BloomPrePassBackgroundColorsGradientFromColorSchemeColors))]
     [HeckPatch("Start")]
-    [HeckPatch((int)TechniPatchType.LIGHTS)]
+    [HeckPatch((int)TechniPatchType.FCKGRADIENTS)]
     internal class BloomPrePassBackgroundColorsGradientFromColorSchemeColorsStart
     {
         private static BloomPrePassBackgroundColorsGradientFromColorSchemeColors.Element[]? _elements;
@@ -42,14 +42,14 @@
             }
         }
 
-        private static void Postfix(BloomPrePassBackgroundColorsGradient ____bloomPrePassBackgroundColorsGradient, BloomPrePassBackgroundColorsGradientFromColorSchemeColors.Element[] ____elements)
+        private static void Postfix(BloomPrePassBackgroundColorsGradientFromColorSchemeColors __instance, BloomPrePassBackgroundColorsGradient ____bloomPrePassBackgroundColorsGradient, BloomPrePassBackgroundColorsGradientFromColorSchemeColors.Element[] ____elements)
         {
             _bloomPrePassBackgroundColorsGradient = ____bloomPrePassBackgroundColorsGradient;
             _elements = ____elements;
 
             if (Settings.TechnicolorConfig.Instance.DisableGradientBackground)
             {
-                SetGradientColors(Color.black, Color.black);
+                __instance.gameObject.SetActive(false);
             }
         }
     }

@@ -14,6 +14,7 @@
         OBSTACLES,
         NOTES,
         BOMBS,
+        FCKGRADIENTS,
     }
 
     internal static class TechnicolorController
@@ -94,7 +95,7 @@
             switch (transition)
             {
                 case TechnicolorTransition.FLAT:
-                    return GetRandomFromArray(TechnicolorWarmPalette, time);
+                    return GetRandomFromArray(TechnicolorWarmPalette);
 
                 case TechnicolorTransition.SMOOTH:
                     return GetLerpedFromArray(TechnicolorWarmPalette, time);
@@ -109,7 +110,7 @@
             switch (transition)
             {
                 case TechnicolorTransition.FLAT:
-                    return GetRandomFromArray(TechnicolorColdPalette, time);
+                    return GetRandomFromArray(TechnicolorColdPalette);
 
                 case TechnicolorTransition.SMOOTH:
                     return GetLerpedFromArray(TechnicolorColdPalette, time);
@@ -119,10 +120,9 @@
             }
         }
 
-        private static Color GetRandomFromArray(Color[] colors, float time, float seedMult = 8)
+        private static Color GetRandomFromArray(Color[] colors)
         {
-            System.Random rand = new System.Random(Mathf.FloorToInt(seedMult * time));
-            return colors[rand.Next(0, colors.Length)];
+            return GetLerpedFromArray(colors, (float)TechniLightRandom.NextDouble());
         }
     }
 }

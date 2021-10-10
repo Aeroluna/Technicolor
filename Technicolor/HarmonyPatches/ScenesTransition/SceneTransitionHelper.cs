@@ -14,6 +14,7 @@
                 TechnicolorController.ToggleTechniPatches(config.TechnicolorWallsStyle != TechnicolorStyle.GRADIENT && config.TechnicolorWallsStyle != TechnicolorStyle.OFF, TechniPatchType.OBSTACLES);
                 TechnicolorController.ToggleTechniPatches(config.TechnicolorBlocksStyle != TechnicolorStyle.GRADIENT && config.TechnicolorBlocksStyle != TechnicolorStyle.OFF, TechniPatchType.NOTES);
                 TechnicolorController.ToggleTechniPatches(config.TechnicolorBombsStyle != TechnicolorStyle.GRADIENT && config.TechnicolorBombsStyle != TechnicolorStyle.OFF, TechniPatchType.BOMBS);
+                TechnicolorController.ToggleTechniPatches(config.TechnicolorLightsStyle != TechnicolorStyle.OFF, TechniPatchType.FCKGRADIENTS);
 
                 if (config.TechnicolorBlocksStyle != TechnicolorStyle.OFF && config.TechnicolorSabersStyle == TechnicolorStyle.OFF)
                 {

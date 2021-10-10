@@ -118,7 +118,7 @@
             switch (t)
             {
                 case TechnicolorLightsGrouping.ISOLATED:
-                    return "Isolated (Mayhem)";
+                    return "Mayhem";
 
                 case TechnicolorLightsGrouping.ISOLATED_GROUP:
                     return "Isolated Event";
