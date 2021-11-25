@@ -12,9 +12,9 @@
 
         public bool TechnicolorEnabled { get; set; } = true;
 
-        public TechnicolorStyle TechnicolorLightsStyle { get; set; } = TechnicolorStyle.WARM_COLD;
+        public TechnicolorStyle TechnicolorLightsStyle { get; set; } = TechnicolorStyle.GRADIENT;
 
-        public TechnicolorLightsGrouping TechnicolorLightsGrouping { get; set; } = TechnicolorLightsGrouping.STANDARD;
+        public TechnicolorLightsGrouping TechnicolorLightsGrouping { get; set; } = TechnicolorLightsGrouping.ISOLATED;
 
         public float TechnicolorLightsFrequency { get; set; } = 0.1f;
 

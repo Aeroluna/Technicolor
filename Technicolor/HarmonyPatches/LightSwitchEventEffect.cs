@@ -1,7 +1,7 @@
 ﻿namespace Technicolor.HarmonyPatches
 {
-    using Chroma;
     using Chroma.Colorizer;
+    using Chroma.Lighting;
     using Heck;
     using Technicolor.Settings;
     using UnityEngine;

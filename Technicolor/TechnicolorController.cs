@@ -40,7 +40,7 @@
 
                     Harmony instance = new Harmony(HARMONYID + Enum.GetName(typeof(TechniPatchType), patchType));
                     _techniPatchInstances.Add(patchType, instance);
-                    HeckData.InitPatches(instance, Assembly.GetExecutingAssembly(), (int)patchType);
+                    HeckPatchDataManager.InitPatches(instance, Assembly.GetExecutingAssembly(), (int)patchType);
                 }
             }
         }
@@ -51,7 +51,7 @@
             {
                 if (value != activeValue)
                 {
-                    HeckData.TogglePatches(_techniPatchInstances![patchType], value);
+                    HeckPatchDataManager.TogglePatches(_techniPatchInstances![patchType], value);
 
                     _techniPatchActive[patchType] = value;
                 }
