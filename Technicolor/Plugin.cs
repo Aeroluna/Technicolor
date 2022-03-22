@@ -1,77 +1,53 @@
-﻿namespace Technicolor
+﻿using BeatSaberMarkupLanguage.GameplaySetup;
+using BeatSaberMarkupLanguage.Settings;
+using Heck;
+using IPA;
+using IPA.Config;
+using IPA.Config.Stores;
+using IPA.Logging;
+using JetBrains.Annotations;
+using SiraUtil.Zenject;
+using Technicolor.Installers;
+using Technicolor.Settings;
+using static Technicolor.TechnicolorController;
+
+namespace Technicolor
 {
-    using System.Reflection;
-    using BeatSaberMarkupLanguage.GameplaySetup;
-    using BeatSaberMarkupLanguage.Settings;
-    using HarmonyLib;
-    using Heck;
-    using IPA;
-    using IPA.Config;
-    using IPA.Config.Stores;
-    using Technicolor.Settings;
-    using UnityEngine.SceneManagement;
-    using IPALogger = IPA.Logging.Logger;
-
-    public enum TechnicolorStyle
-    {
-        OFF,
-        WARM_COLD,
-        PURE_RANDOM,
-        GRADIENT,
-    }
-
-    public enum TechnicolorTransition
-    {
-        FLAT,
-        SMOOTH,
-    }
-
-    public enum TechnicolorLightsGrouping
-    {
-        STANDARD,
-        ISOLATED_GROUP,
-        ISOLATED,
-    }
-
     [Plugin(RuntimeOptions.DynamicInit)]
     internal class Plugin
     {
-        internal const string HARMONYID = "com.noodle.BeatSaber.Technicolor";
-        private static readonly Harmony _harmonyInstance = new Harmony(HARMONYID);
-
-#pragma warning disable CS8618
-        internal static HeckLogger Logger { get; private set; }
-#pragma warning restore CS8618
-
+        [UsedImplicitly]
         [Init]
-        public void Init(IPALogger pluginLogger, Config config)
+        public Plugin(Logger pluginLogger, Config config, Zenjector zenjector)
         {
-            Logger = new HeckLogger(pluginLogger);
+            Log.Logger = new HeckLogger(pluginLogger);
             TechnicolorConfig.Instance = config.Generated<TechnicolorConfig>();
-            TechnicolorController.InitTechniPatches();
+            zenjector.Install<PlayerInstaller>(Location.Player);
         }
 
+#pragma warning disable CA1822
+        [UsedImplicitly]
         [OnEnable]
         public void OnEnable()
         {
-            _harmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
             BSMLSettings.instance.AddSettingsMenu("Technicolor", "Technicolor.Settings.settings.bsml", TechnicolorSettingsUI.instance);
             GameplaySetup.instance.AddTab("Technicolor", "Technicolor.Settings.modifiers.bsml", TechnicolorSettingsUI.instance);
-            SceneManager.activeSceneChanged += OnActiveSceneChanged;
+            TechniModule.Enabled = true;
         }
 
+        [UsedImplicitly]
         [OnDisable]
         public void OnDisable()
         {
-            _harmonyInstance.UnpatchAll(HARMONYID);
             BSMLSettings.instance.RemoveSettingsMenu(TechnicolorSettingsUI.instance);
             GameplaySetup.instance.RemoveTab("Technicolor");
-            SceneManager.activeSceneChanged -= OnActiveSceneChanged;
+            TechniModule.Enabled = false;
+            LightsEnabled = false;
+            ObstaclesEnabled = false;
+            NotesEnabled = false;
+            BombsEnabled = false;
+            FckGradientsEnabled = false;
         }
-
-        public void OnActiveSceneChanged(Scene prevScene, Scene scene)
-        {
-            TechnicolorController.ResetRandom();
-        }
+#pragma warning restore CA1822
     }
 }

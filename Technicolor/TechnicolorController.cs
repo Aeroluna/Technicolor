@@ -1,80 +1,49 @@
-﻿namespace Technicolor
+﻿using System.ComponentModel;
+using Heck;
+using Technicolor.Managers;
+using UnityEngine;
+using Random = System.Random;
+
+namespace Technicolor
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Reflection;
-    using HarmonyLib;
-    using Heck;
-    using UnityEngine;
-    using static Technicolor.Plugin;
-
-    internal enum TechniPatchType
-    {
-        LIGHTS,
-        OBSTACLES,
-        NOTES,
-        BOMBS,
-        FCKGRADIENTS,
-    }
-
     internal static class TechnicolorController
     {
-        private static IDictionary<TechniPatchType, Harmony>? _techniPatchInstances;
-        private static IDictionary<TechniPatchType, bool>? _techniPatchActive;
+        internal static Color[] TechnicolorWarmPalette { get; } = { new(1, 0, 0), new(1, 0, 1), new(1, 0.6f, 0), new(1, 0, 0.4f) };
 
-        internal static Color[] TechnicolorWarmPalette { get; } = new Color[4] { new Color(1, 0, 0), new Color(1, 0, 1), new Color(1, 0.6f, 0), new Color(1, 0, 0.4f) };
+        internal static Color[] TechnicolorColdPalette { get; } = { new(0, 0.501f, 1), new(0, 1, 0), new(0, 0, 1), new(0, 1, 0.8f) };
 
-        internal static Color[] TechnicolorColdPalette { get; } = new Color[4] { new Color(0, 0.501f, 1), new Color(0, 1, 0), new Color(0, 0, 1), new Color(0, 1, 0.8f) };
+        internal static Random TechniLightRandom { get; set; } = new(400);
 
-        internal static System.Random TechniLightRandom { get; private set; } = new System.Random(400);
+        internal static bool TechnicolorEnabled { get; set; }
 
-        internal static void InitTechniPatches()
-        {
-            if (_techniPatchInstances == null)
-            {
-                _techniPatchInstances = new Dictionary<TechniPatchType, Harmony>();
-                _techniPatchActive = new Dictionary<TechniPatchType, bool>();
-                foreach (TechniPatchType patchType in Enum.GetValues(typeof(TechniPatchType)))
-                {
-                    _techniPatchActive.Add(patchType, false);
+        internal static bool LightsEnabled { get; set; }
 
-                    Harmony instance = new Harmony(HARMONYID + Enum.GetName(typeof(TechniPatchType), patchType));
-                    _techniPatchInstances.Add(patchType, instance);
-                    HeckPatchDataManager.InitPatches(instance, Assembly.GetExecutingAssembly(), (int)patchType);
-                }
-            }
-        }
+        internal static bool ObstaclesEnabled { get; set; }
 
-        internal static void ToggleTechniPatches(bool value, TechniPatchType patchType)
-        {
-            if (_techniPatchActive!.TryGetValue(patchType, out bool activeValue))
-            {
-                if (value != activeValue)
-                {
-                    HeckPatchDataManager.TogglePatches(_techniPatchInstances![patchType], value);
+        internal static bool NotesEnabled { get; set; }
 
-                    _techniPatchActive[patchType] = value;
-                }
-            }
-        }
+        internal static bool BombsEnabled { get; set; }
 
-        internal static void ResetRandom()
-        {
-            TechniLightRandom = new System.Random(400);
-        }
+        internal static bool FckGradientsEnabled { get; set; }
+
+        internal static Module TechniModule { get; } = ModuleManager.RegisterModule<ModuleCallbacks>(
+            "Technicolor",
+            1,
+            RequirementType.Condition,
+            null,
+            new[] { "ChromaColorizer" },
+            new[] { "Chroma" });
 
         internal static Color GetTechnicolor(bool warm, float time, TechnicolorStyle style, TechnicolorTransition transition = TechnicolorTransition.FLAT)
         {
-            switch (style)
+            return style switch
             {
-                case TechnicolorStyle.PURE_RANDOM:
-                    return Color.HSVToRGB(UnityEngine.Random.value, 1f, 1f);
-
-                case TechnicolorStyle.WARM_COLD:
-                    return warm ? GetWarmTechnicolour(time, transition) : GetColdTechnicolour(time, transition);
-
-                default: return Color.white;
-            }
+                TechnicolorStyle.PURE_RANDOM => Color.HSVToRGB(UnityEngine.Random.value, 1f, 1f),
+                TechnicolorStyle.WARM_COLD => warm
+                    ? GetWarmTechnicolour(time, transition)
+                    : GetColdTechnicolour(time, transition),
+                _ => throw new InvalidEnumArgumentException(nameof(style), (int)style, typeof(TechnicolorStyle))
+            };
         }
 
         internal static Color GetLerpedFromArray(Color[] colors, float time)
@@ -92,32 +61,22 @@
 
         private static Color GetWarmTechnicolour(float time, TechnicolorTransition transition)
         {
-            switch (transition)
+            return transition switch
             {
-                case TechnicolorTransition.FLAT:
-                    return GetRandomFromArray(TechnicolorWarmPalette);
-
-                case TechnicolorTransition.SMOOTH:
-                    return GetLerpedFromArray(TechnicolorWarmPalette, time);
-
-                default:
-                    return Color.white;
-            }
+                TechnicolorTransition.FLAT => GetRandomFromArray(TechnicolorWarmPalette),
+                TechnicolorTransition.SMOOTH => GetLerpedFromArray(TechnicolorWarmPalette, time),
+                _ => Color.white
+            };
         }
 
         private static Color GetColdTechnicolour(float time, TechnicolorTransition transition)
         {
-            switch (transition)
+            return transition switch
             {
-                case TechnicolorTransition.FLAT:
-                    return GetRandomFromArray(TechnicolorColdPalette);
-
-                case TechnicolorTransition.SMOOTH:
-                    return GetLerpedFromArray(TechnicolorColdPalette, time);
-
-                default:
-                    return Color.white;
-            }
+                TechnicolorTransition.FLAT => GetRandomFromArray(TechnicolorColdPalette),
+                TechnicolorTransition.SMOOTH => GetLerpedFromArray(TechnicolorColdPalette, time),
+                _ => Color.white
+            };
         }
 
         private static Color GetRandomFromArray(Color[] colors)

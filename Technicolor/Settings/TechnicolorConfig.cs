@@ -1,12 +1,17 @@
-﻿namespace Technicolor.Settings
+﻿using System;
+using JetBrains.Annotations;
+using Technicolor.Managers;
+
+namespace Technicolor.Settings
 {
+    [UsedImplicitly]
     public class TechnicolorConfig
     {
         private static TechnicolorConfig? _instance;
 
         public static TechnicolorConfig Instance
         {
-            get => _instance ?? throw new System.InvalidOperationException("TechnicolorConfig instance not yet created.");
+            get => _instance ?? throw new InvalidOperationException("TechnicolorConfig instance not yet created.");
             set => _instance = value;
         }
 
@@ -26,8 +31,8 @@
 
         public TechnicolorStyle TechnicolorBombsStyle { get; set; } = TechnicolorStyle.PURE_RANDOM;
 
-        public bool Desync { get; set; } = false;
+        public bool Desync { get; set; }
 
-        public bool DisableGradientBackground { get; set; } = false;
+        public bool DisableGradientBackground { get; set; }
     }
 }
