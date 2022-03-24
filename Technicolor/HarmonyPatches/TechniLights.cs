@@ -18,7 +18,7 @@ namespace Technicolor.HarmonyPatches
         }
 
         [AffinityPrefix]
-        [AffinityPatch(typeof(ChromaLightSwitchEventEffect), "Callback")]
+        [AffinityPatch(typeof(ChromaLightSwitchEventEffect), "BasicCallback")]
         private bool Colorize(ChromaLightSwitchEventEffect __instance, BasicBeatmapEventData beatmapEventData)
         {
             if (!TechnicolorConfig.Instance.TechnicolorEnabled)
