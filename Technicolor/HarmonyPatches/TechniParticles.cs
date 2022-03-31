@@ -17,7 +17,7 @@ namespace Technicolor.HarmonyPatches
         [AffinityPatch(
             typeof(ParticleSystemEventEffect),
             nameof(ParticleSystemEventEffect.HandleBeatmapEvent))]
-        private bool Colorize(ParticleSystemEventEffect __instance, BasicBeatmapEventData beatmapEventData)
+        private bool Colorize(ParticleSystemEventEffect __instance, BasicBeatmapEventData basicBeatmapEventData)
         {
             if (!TechnicolorConfig.Instance.TechnicolorEnabled)
             {
@@ -35,15 +35,15 @@ namespace Technicolor.HarmonyPatches
             ParticleSystem.Particle[] particles = _particlesAccessor(ref __instance);
             ParticleSystem particleSystem = _particleSystemAccessor(ref __instance);
             mainmodule.startColor = TechnicolorController.GetTechnicolor(
-                beatmapEventData.value > 3,
-                beatmapEventData.time,
+                basicBeatmapEventData.value > 3,
+                basicBeatmapEventData.time,
                 TechnicolorConfig.Instance.TechnicolorLightsStyle);
             particleSystem.GetParticles(particles, particles.Length);
             for (int i = 0; i < particleSystem.particleCount; i++)
             {
                 particles[i].startColor = TechnicolorController.GetTechnicolor(
-                    beatmapEventData.value > 3,
-                    beatmapEventData.time + particles[i].randomSeed,
+                    basicBeatmapEventData.value > 3,
+                    basicBeatmapEventData.time + particles[i].randomSeed,
                     TechnicolorConfig.Instance.TechnicolorLightsStyle);
             }
 
