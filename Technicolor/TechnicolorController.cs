@@ -26,6 +26,7 @@ namespace Technicolor
 
         internal static bool FckGradientsEnabled { get; set; }
 
+        //TODO: CAHNGE CHANGE CHANGE
         internal static Module TechniModule { get; } = ModuleManager.RegisterModule<ModuleCallbacks>(
             "Technicolor",
             1,

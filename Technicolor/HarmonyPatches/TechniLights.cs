@@ -27,7 +27,7 @@ namespace Technicolor.HarmonyPatches
             }
 
             LightColorizer lightColorizer = __instance.Colorizer;
-            bool warm = !ChromaLightSwitchEventEffect.IsColor0(beatmapEventData.value);
+            bool warm = BeatmapEventDataLightsExtensions.GetLightColorTypeFromEventDataValue(beatmapEventData.value) == EnvironmentColorType.Color1;
             if (TechnicolorConfig.Instance.TechnicolorLightsGrouping == TechnicolorLightsGrouping.ISOLATED)
             {
                 foreach (ILightWithId light in lightColorizer.Lights)
