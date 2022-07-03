@@ -24,10 +24,7 @@ namespace Technicolor
 
         internal static bool BombsEnabled { get; set; }
 
-        internal static bool FckGradientsEnabled { get; set; }
-
-        //TODO: CAHNGE CHANGE CHANGE
-        internal static Module TechniModule { get; } = ModuleManager.RegisterModule<ModuleCallbacks>(
+        internal static Module TechniModule { get; } = ModuleManager.Register<ModuleCallbacks>(
             "Technicolor",
             1,
             RequirementType.Condition,

@@ -25,7 +25,6 @@ namespace Technicolor
                 ObstaclesEnabled = config.TechnicolorWallsStyle is not (TechnicolorStyle.OFF or TechnicolorStyle.GRADIENT);
                 NotesEnabled = config.TechnicolorBlocksStyle is not (TechnicolorStyle.OFF or TechnicolorStyle.GRADIENT);
                 BombsEnabled = config.TechnicolorBombsStyle is not (TechnicolorStyle.OFF or TechnicolorStyle.GRADIENT);
-                FckGradientsEnabled = config.TechnicolorLightsStyle != TechnicolorStyle.OFF;
             }
             else
             {
@@ -33,7 +32,6 @@ namespace Technicolor
                 ObstaclesEnabled = false;
                 NotesEnabled = false;
                 BombsEnabled = false;
-                FckGradientsEnabled = false;
             }
         }
     }

@@ -46,7 +46,6 @@ namespace Technicolor
             ObstaclesEnabled = false;
             NotesEnabled = false;
             BombsEnabled = false;
-            FckGradientsEnabled = false;
         }
 #pragma warning restore CA1822
     }
