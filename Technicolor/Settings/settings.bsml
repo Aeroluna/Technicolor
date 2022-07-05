@@ -1,9 +1,9 @@
 ﻿<settings-container xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd">
+  <list-setting text='Color Boost' value='colorboost' choices='colorboostchoices' hover-hint='The higher the number, the brighter the colors!' formatter='float'></list-setting>  <bool-setting text='Disable Gradient Background' value='disablegradient' hover-hint='Disables the incredibly ugly gradient background.'></bool-setting>
   <bool-setting text='Technicolor' value='technicolor' hover-hint='Enable/Disable Technicolor. See Technicolor options below.'></bool-setting>
   <dropdown-list-setting text='Lights Grouping' value='lightsgroup' options='lightsgroupchoices' formatter='techgroupform' hover-hint='Isolated Event for better performance, but more chaotic lighting'></dropdown-list-setting>
   <list-setting text='Lights Frequency' value='lightsfreq' choices='lightsfreqchoices' hover-hint='The higher the frequency, the more color changes. This also controls how quickly the Gradient style shifts.  10% is default.' formatter='percentfreq'></list-setting>
   <bool-setting text='Desync Left/Right' value='desync' hover-hint='If true, technicolor styles that shift between colors (Gradient) will desync left/right colors.'></bool-setting>
-  <bool-setting text='Disable Gradient Background' value='disablegradient' hover-hint='Disables the incredibly ugly gradient background.'></bool-setting>
 
   <settings-submenu text='&#62; Technicolor Styles' bold='true' font-size='6'>
     <settings-container>

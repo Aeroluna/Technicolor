@@ -1,5 +1,6 @@
 ﻿using BeatSaberMarkupLanguage.GameplaySetup;
 using BeatSaberMarkupLanguage.Settings;
+using HarmonyLib;
 using Heck;
 using IPA;
 using IPA.Config;
@@ -16,6 +17,8 @@ namespace Technicolor
     [Plugin(RuntimeOptions.DynamicInit)]
     internal class Plugin
     {
+        private static readonly Harmony _harmonyInstance = new(HARMONY_ID);
+
         [UsedImplicitly]
         [Init]
         public Plugin(Logger pluginLogger, Config config, Zenjector zenjector)
@@ -30,6 +33,7 @@ namespace Technicolor
         [OnEnable]
         public void OnEnable()
         {
+            _harmonyInstance.PatchAll(typeof(Plugin).Assembly);
             BSMLSettings.instance.AddSettingsMenu("Technicolor", "Technicolor.Settings.settings.bsml", TechnicolorSettingsUI.instance);
             GameplaySetup.instance.AddTab("Technicolor", "Technicolor.Settings.modifiers.bsml", TechnicolorSettingsUI.instance);
             TechniModule.Enabled = true;
@@ -39,6 +43,7 @@ namespace Technicolor
         [OnDisable]
         public void OnDisable()
         {
+            _harmonyInstance.UnpatchSelf();
             BSMLSettings.instance.RemoveSettingsMenu(TechnicolorSettingsUI.instance);
             GameplaySetup.instance.RemoveTab("Technicolor");
             TechniModule.Enabled = false;

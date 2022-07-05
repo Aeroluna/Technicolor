@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using HarmonyLib;
 using Heck;
 using Technicolor.Managers;
 using UnityEngine;
@@ -8,6 +9,8 @@ namespace Technicolor
 {
     internal static class TechnicolorController
     {
+        internal const string HARMONY_ID = "aeroluna.Technicolor";
+
         internal static Color[] TechnicolorWarmPalette { get; } = { new(1, 0, 0), new(1, 0, 1), new(1, 0.6f, 0), new(1, 0, 0.4f) };
 
         internal static Color[] TechnicolorColdPalette { get; } = { new(0, 0.501f, 1), new(0, 1, 0), new(0, 0, 1), new(0, 1, 0.8f) };

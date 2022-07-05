@@ -34,5 +34,7 @@ namespace Technicolor.Settings
         public bool Desync { get; set; }
 
         public bool DisableGradientBackground { get; set; }
+
+        public float ColorBoost { get; set; }
     }
 }
