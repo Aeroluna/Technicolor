@@ -9,10 +9,6 @@ namespace Technicolor.HarmonyPatches
     // could technically just be a static harmony patch but i just want to handle it with every other patch
     internal class TechniParticles : IAffinity
     {
-        private static readonly FieldAccessor<ParticleSystemEventEffect, ParticleSystem.MainModule>.Accessor _mainModuleAccessor = FieldAccessor<ParticleSystemEventEffect, ParticleSystem.MainModule>.GetAccessor("_mainModule");
-        private static readonly FieldAccessor<ParticleSystemEventEffect, ParticleSystem.Particle[]>.Accessor _particlesAccessor = FieldAccessor<ParticleSystemEventEffect, ParticleSystem.Particle[]>.GetAccessor("_particles");
-        private static readonly FieldAccessor<ParticleSystemEventEffect, ParticleSystem>.Accessor _particleSystemAccessor = FieldAccessor<ParticleSystemEventEffect, ParticleSystem>.GetAccessor("_particleSystem");
-
         [AffinityPrefix]
         [AffinityPatch(
             typeof(ParticleSystemEventEffect),
@@ -31,9 +27,9 @@ namespace Technicolor.HarmonyPatches
                 return true;
             }
 
-            ParticleSystem.MainModule mainmodule = _mainModuleAccessor(ref __instance);
-            ParticleSystem.Particle[] particles = _particlesAccessor(ref __instance);
-            ParticleSystem particleSystem = _particleSystemAccessor(ref __instance);
+            ParticleSystem.MainModule mainmodule = __instance._mainModule;
+            ParticleSystem.Particle[] particles = __instance._particles;
+            ParticleSystem particleSystem = __instance._particleSystem;
             mainmodule.startColor = TechnicolorController.GetTechnicolor(
                 basicBeatmapEventData.value > 3,
                 basicBeatmapEventData.time,

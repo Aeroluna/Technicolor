@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using BeatSaberMarkupLanguage.Attributes;
+using BeatSaberMarkupLanguage.Util;
 using JetBrains.Annotations;
 using Technicolor.Managers;
 
