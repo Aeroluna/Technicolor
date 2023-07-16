@@ -32,8 +32,7 @@ namespace Technicolor
             1,
             RequirementType.Condition,
             null,
-            new[] { "ChromaColorizer" },
-            new[] { "Chroma" });
+            new[] { "ChromaColorizer" });
 
         internal static Color GetTechnicolor(bool warm, float time, TechnicolorStyle style, TechnicolorTransition transition = TechnicolorTransition.FLAT)
         {
