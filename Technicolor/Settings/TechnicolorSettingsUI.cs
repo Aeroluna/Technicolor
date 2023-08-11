@@ -119,6 +119,38 @@ namespace Technicolor.Settings
         }
 
         [UsedImplicitly]
+        [UIValue("useleftnote")]
+        public bool UseLeftBlocksStyle
+        {
+            get => TechnicolorConfig.Instance.UseLeftBlocksStyle;
+            set => TechnicolorConfig.Instance.UseLeftBlocksStyle = value;
+        }
+
+        [UsedImplicitly]
+        [UIValue("lefttechnotes")]
+        public TechnicolorStyle LeftTechnicolorBlocksStyle
+        {
+            get => TechnicolorConfig.Instance.LeftTechnicolorBlocksStyle;
+            set => TechnicolorConfig.Instance.LeftTechnicolorBlocksStyle = value;
+        }
+
+        [UsedImplicitly]
+        [UIValue("useleftsaber")]
+        public bool UseLeftSaberStyle
+        {
+            get => TechnicolorConfig.Instance.UseLeftSaberStyle;
+            set => TechnicolorConfig.Instance.UseLeftSaberStyle = value;
+        }
+
+        [UsedImplicitly]
+        [UIValue("lefttechsabers")]
+        public TechnicolorStyle LeftTechnicolorSabersStyle
+        {
+            get => TechnicolorConfig.Instance.LeftTechnicolorSabersStyle;
+            set => TechnicolorConfig.Instance.LeftTechnicolorSabersStyle = value;
+        }
+
+        [UsedImplicitly]
         [UIAction("float")]
         private string FloatDisplay(float percent)
         {

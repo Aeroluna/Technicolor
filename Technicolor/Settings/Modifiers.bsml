@@ -1,6 +1,8 @@
 ﻿<bg xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
   <modifier-container pref-width='65'>
-    <modifier src='#HueWheel' text='Technicolor' value='technicolor' apply-on-change='true' hover-hint='Enable Technicolor. Same as enabling from Mod Settings'></modifier>
-    <list-setting text='Color Boost' value='colorboost' choices='colorboostchoices' apply-on-change='true' hover-hint='The higher the number, the brighter the colors!' formatter='float'></list-setting>
+    <modifier src='#HueWheel' text='Technicolor' value='technicolor' apply-on-change='true'
+              hover-hint='Enable Technicolor. Same as enabling from Mod Settings'/>
+    <list-setting text='Color Boost' value='colorboost' choices='colorboostchoices' apply-on-change='true'
+                  hover-hint='The higher the number, the brighter the colors!' formatter='float'/>
   </modifier-container>
 </bg>

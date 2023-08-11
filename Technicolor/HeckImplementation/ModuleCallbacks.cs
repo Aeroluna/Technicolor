@@ -23,7 +23,8 @@ namespace Technicolor
             {
                 LightsEnabled = config.TechnicolorLightsStyle is not (TechnicolorStyle.OFF or TechnicolorStyle.GRADIENT);
                 ObstaclesEnabled = config.TechnicolorWallsStyle is not (TechnicolorStyle.OFF or TechnicolorStyle.GRADIENT);
-                NotesEnabled = config.TechnicolorBlocksStyle is not (TechnicolorStyle.OFF or TechnicolorStyle.GRADIENT);
+                NotesEnabled = config.TechnicolorBlocksStyle is not (TechnicolorStyle.OFF or TechnicolorStyle.GRADIENT) ||
+                               config is { UseLeftBlocksStyle: true, LeftTechnicolorBlocksStyle: not (TechnicolorStyle.OFF or TechnicolorStyle.GRADIENT) };
                 BombsEnabled = config.TechnicolorBombsStyle is not (TechnicolorStyle.OFF or TechnicolorStyle.GRADIENT);
             }
             else

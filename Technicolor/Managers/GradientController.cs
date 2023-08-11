@@ -49,6 +49,9 @@ namespace Technicolor.Managers
         private readonly Color[] _leftSaberPalette = Array.Empty<Color>();
         private readonly Color[] _rightSaberPalette = Array.Empty<Color>();
 
+        private readonly bool _randomLeft;
+        private readonly bool _randomRight;
+
         private Color _gradientColor;
         private Color _gradientLeftColor;
         private Color _gradientRightColor;
@@ -86,9 +89,21 @@ namespace Technicolor.Managers
                 UpdateTechnicolourEvent += RainbowGradientBackground;
             }
 
+            bool useSameBlocksStyle = !config.UseLeftBlocksStyle;
+            bool leftBlocksAdded = false;
+            if (config.LeftTechnicolorBlocksStyle == TechnicolorStyle.GRADIENT && !useSameBlocksStyle)
+            {
+                UpdateTechnicolourEvent += RainbowNotesLeft;
+                leftBlocksAdded = true;
+            }
+
             if (config.TechnicolorBlocksStyle == TechnicolorStyle.GRADIENT)
             {
-                UpdateTechnicolourEvent += RainbowNotes;
+                UpdateTechnicolourEvent += RainbowNotesRight;
+                if (useSameBlocksStyle && !leftBlocksAdded)
+                {
+                    UpdateTechnicolourEvent += RainbowNotesLeft;
+                }
             }
 
             if (config.TechnicolorWallsStyle == TechnicolorStyle.GRADIENT)
@@ -101,6 +116,38 @@ namespace Technicolor.Managers
                 UpdateTechnicolourEvent += RainbowBombs;
             }
 
+            bool useSameSaberStyle = !config.UseLeftSaberStyle;
+            bool randomAdded = false;
+            bool leftAdded = false;
+
+            if (config.LeftTechnicolorSabersStyle != TechnicolorStyle.OFF && !useSameSaberStyle)
+            {
+                switch (config.LeftTechnicolorSabersStyle)
+                {
+                    case TechnicolorStyle.GRADIENT:
+                        UpdateTechnicolourEvent += GradientTickLeft;
+
+                        break;
+
+                    case TechnicolorStyle.PURE_RANDOM:
+                        _leftSaberPalette = new[] { Color.HSVToRGB(Random.value, 1f, 1f), Color.HSVToRGB(Random.value, 1f, 1f) };
+                        _randomLeft = true;
+                        UpdateTechnicolourEvent += RandomTick;
+                        randomAdded = true;
+
+                        break;
+
+                    default:
+                        _leftSaberPalette = TechnicolorController.TechnicolorWarmPalette;
+                        UpdateTechnicolourEvent += PaletteTickLeft;
+
+                        break;
+                }
+
+                UpdateTechnicolourEvent += RainbowSaberLeft;
+                leftAdded = true;
+            }
+
             // sabers use this script regardless of technicolour style
             if (config.TechnicolorSabersStyle == TechnicolorStyle.OFF)
             {
@@ -110,23 +157,49 @@ namespace Technicolor.Managers
             switch (config.TechnicolorSabersStyle)
             {
                 case TechnicolorStyle.GRADIENT:
-                    UpdateTechnicolourEvent += GradientTick;
+                    UpdateTechnicolourEvent += GradientTickRight;
+                    if (useSameSaberStyle)
+                    {
+                        UpdateTechnicolourEvent += GradientTickLeft;
+                    }
+
                     break;
 
                 case TechnicolorStyle.PURE_RANDOM:
-                    _leftSaberPalette = new[] { Color.HSVToRGB(Random.value, 1f, 1f), Color.HSVToRGB(Random.value, 1f, 1f) };
                     _rightSaberPalette = new[] { Color.HSVToRGB(Random.value, 1f, 1f), Color.HSVToRGB(Random.value, 1f, 1f) };
-                    UpdateTechnicolourEvent += RandomTick;
+                    _randomRight = true;
+
+                    if (useSameSaberStyle)
+                    {
+                        _leftSaberPalette = new[] { Color.HSVToRGB(Random.value, 1f, 1f), Color.HSVToRGB(Random.value, 1f, 1f) };
+                        _randomLeft = true;
+                    }
+
+                    if (!randomAdded)
+                    {
+                        UpdateTechnicolourEvent += RandomTick;
+                    }
+
                     break;
 
                 default:
-                    _leftSaberPalette = TechnicolorController.TechnicolorWarmPalette;
                     _rightSaberPalette = TechnicolorController.TechnicolorColdPalette;
-                    UpdateTechnicolourEvent += PaletteTick;
+                    UpdateTechnicolourEvent += PaletteTickRight;
+
+                    if (useSameSaberStyle)
+                    {
+                        _leftSaberPalette = TechnicolorController.TechnicolorWarmPalette;
+                        UpdateTechnicolourEvent += PaletteTickLeft;
+                    }
+
                     break;
             }
 
-            UpdateTechnicolourEvent += RainbowSabers;
+            UpdateTechnicolourEvent += RainbowSaberRight;
+            if (useSameSaberStyle && !leftAdded)
+            {
+                UpdateTechnicolourEvent += RainbowSaberLeft;
+            }
         }
 
         private event Action? UpdateTechnicolourEvent;
@@ -172,9 +245,13 @@ namespace Technicolor.Managers
             _backgroundGradientColorizer.SetGradientColors(_gradientLeftColor, _gradientRightColor);
         }
 
-        private void RainbowNotes()
+        private void RainbowNotesLeft()
         {
             _noteColorizerManager.GlobalColorize(_gradientLeftColor, ColorType.ColorA);
+        }
+
+        private void RainbowNotesRight()
+        {
             _noteColorizerManager.GlobalColorize(_gradientRightColor, ColorType.ColorB);
         }
 
@@ -188,26 +265,38 @@ namespace Technicolor.Managers
             _bombColorizerManager.GlobalColorize(_gradientColor);
         }
 
-        private void RainbowSabers()
+        private void RainbowSaberLeft()
         {
-            _saberColorizerManager.GlobalColorize(_rainbowSaberColors[0], SaberType.SaberA);
-            _saberColorizerManager.GlobalColorize(_rainbowSaberColors[1], SaberType.SaberB);
+            _saberColorizerManager.GlobalColorize(_rainbowSaberColors[1], SaberType.SaberA);
+        }
+
+        private void RainbowSaberRight()
+        {
+            _saberColorizerManager.GlobalColorize(_rainbowSaberColors[0], SaberType.SaberB);
         }
 
         /*
          * PALETTED
          */
 
-        private void PaletteTick()
+        private void PaletteTickLeft()
         {
-            _rainbowSaberColors[0] = TechnicolorController.GetLerpedFromArray(LeftSaberPalette, Time.time + _mismatchSpeedOffset);
-            _rainbowSaberColors[1] = TechnicolorController.GetLerpedFromArray(RightSaberPalette, Time.time);
+            _rainbowSaberColors[1] = TechnicolorController.GetLerpedFromArray(LeftSaberPalette, Time.time + _mismatchSpeedOffset);
         }
 
-        private void GradientTick()
+        private void PaletteTickRight()
         {
-            _rainbowSaberColors[0] = _gradientLeftColor;
-            _rainbowSaberColors[1] = _gradientRightColor;
+            _rainbowSaberColors[0] = TechnicolorController.GetLerpedFromArray(RightSaberPalette, Time.time);
+        }
+
+        private void GradientTickLeft()
+        {
+            _rainbowSaberColors[1] = _gradientLeftColor;
+        }
+
+        private void GradientTickRight()
+        {
+            _rainbowSaberColors[0] = _gradientRightColor;
         }
 
         /*
@@ -220,27 +309,37 @@ namespace Technicolor.Managers
             if (_h > 1)
             {
                 _h = 0;
-                RandomCycleNext();
+                if (_randomLeft)
+                {
+                    _leftSaberPalette[0] = _leftSaberPalette[1];
+                    _leftSaberPalette[1] = Color.HSVToRGB(Random.value, 1f, 1f);
+                }
+
+                if (_randomRight)
+                {
+                    _rightSaberPalette[0] = _rightSaberPalette[1];
+                    if (_match && _randomLeft)
+                    {
+                        _rightSaberPalette[1] = _leftSaberPalette[1];
+                    }
+                    else
+                    {
+                        _rightSaberPalette[1] = Color.HSVToRGB(Random.value, 1f, 1f);
+                    }
+                }
             }
 
-            _rainbowSaberColors[0] = Color.Lerp(_leftSaberPalette[0], _leftSaberPalette[1], _h);
-            _rainbowSaberColors[1] = Color.Lerp(_rightSaberPalette[0], _rightSaberPalette[1], _h);
+            if (_randomRight)
+            {
+                _rainbowSaberColors[0] = Color.Lerp(_rightSaberPalette[0], _rightSaberPalette[1], _h);
+            }
+
+            if (_randomLeft)
+            {
+                _rainbowSaberColors[1] = Color.Lerp(_leftSaberPalette[0], _leftSaberPalette[1], _h);
+            }
+
             _lastTime = Time.time;
-        }
-
-        private void RandomCycleNext()
-        {
-            _leftSaberPalette[0] = _leftSaberPalette[1];
-            _rightSaberPalette[0] = _rightSaberPalette[1];
-            _leftSaberPalette[1] = Color.HSVToRGB(Random.value, 1f, 1f);
-            if (_match)
-            {
-                _rightSaberPalette[1] = _leftSaberPalette[1];
-            }
-            else
-            {
-                _rightSaberPalette[1] = Color.HSVToRGB(Random.value, 1f, 1f);
-            }
         }
     }
 }

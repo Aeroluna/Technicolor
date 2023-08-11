@@ -43,7 +43,9 @@ namespace Technicolor.Installers
                 Container.BindInterfacesTo<TechniBomb>().AsSingle();
             }
 
-            if (TechnicolorConfig.Instance.TechnicolorSabersStyle != TechnicolorStyle.OFF)
+            TechnicolorConfig config = TechnicolorConfig.Instance;
+            if (config.TechnicolorSabersStyle != TechnicolorStyle.OFF ||
+                (config.UseLeftSaberStyle && config.LeftTechnicolorSabersStyle != TechnicolorStyle.OFF))
             {
                 Container.BindInstance(true).WithId("dontColorizeSabers");
             }

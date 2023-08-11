@@ -36,5 +36,13 @@ namespace Technicolor.Settings
         public bool DisableGradientBackground { get; set; }
 
         public float ColorBoost { get; set; }
+
+        public bool UseLeftSaberStyle { get; set; }
+
+        public TechnicolorStyle LeftTechnicolorSabersStyle { get; set; } = TechnicolorStyle.OFF;
+
+        public bool UseLeftBlocksStyle { get; set; }
+
+        public TechnicolorStyle LeftTechnicolorBlocksStyle { get; set; } = TechnicolorStyle.OFF;
     }
 }
