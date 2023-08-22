@@ -2,15 +2,15 @@
   "$schema": "https://raw.githubusercontent.com/bsmg/BSIPA-MetadataFileSchema/master/Schema.json",
   "author": "Aeroluna",
   "description": "Rainbow lights",
-  "gameVersion": "1.31.0",
+  "gameVersion": "1.29.1",
   "id": "Technicolor",
   "name": "Technicolor",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "dependsOn": {
     "BeatSaberMarkupLanguage": "^1.6.3",
     "Chroma": "^2.6.0",
     "_Heck": "^1.4.0",
-    "BSIPA": "^4.3.0",
+    "BSIPA": "^4.2.2",
     "SiraUtil": "^3.0.5"
   }
 }
