@@ -9,10 +9,12 @@ namespace Technicolor.HarmonyPatches
     internal class TechniNote : IAffinity
     {
         private readonly NoteColorizerManager _manager;
+        private readonly Config _config;
 
-        private TechniNote(NoteColorizerManager manager)
+        private TechniNote(NoteColorizerManager manager, Config config)
         {
             _manager = manager;
+            _config = config;
         }
 
         [AffinityPostfix]
@@ -21,6 +23,18 @@ namespace Technicolor.HarmonyPatches
         {
             NoteData noteData = noteController.noteData;
             bool warm = noteData.colorType == ColorType.ColorA;
+
+            bool useLeftStyle = _config.UseLeftBlocksStyle;
+            if (warm)
+            {
+                Technicolorize(useLeftStyle ? _config.LeftTechnicolorBlocksStyle : _config.TechnicolorBlocksStyle);
+            }
+            else
+            {
+                Technicolorize(_config.TechnicolorBlocksStyle);
+            }
+
+            return;
 
             void Technicolorize(TechnicolorStyle style)
             {
@@ -34,17 +48,6 @@ namespace Technicolor.HarmonyPatches
                     noteData.time + noteController.GetInstanceID(),
                     style);
                 _manager.Colorize(noteController, color);
-            }
-
-            TechnicolorConfig config = TechnicolorConfig.Instance;
-            bool useLeftStyle = config.UseLeftBlocksStyle;
-            if (warm)
-            {
-                Technicolorize(useLeftStyle ? config.LeftTechnicolorBlocksStyle : config.TechnicolorBlocksStyle);
-            }
-            else
-            {
-                Technicolorize(config.TechnicolorBlocksStyle);
             }
         }
     }

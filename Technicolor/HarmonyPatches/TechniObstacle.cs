@@ -7,10 +7,12 @@ namespace Technicolor.HarmonyPatches
     internal class TechniObstacle : IAffinity
     {
         private readonly ObstacleColorizerManager _manager;
+        private readonly Config _config;
 
-        private TechniObstacle(ObstacleColorizerManager manager)
+        private TechniObstacle(ObstacleColorizerManager manager, Config config)
         {
             _manager = manager;
+            _config = config;
         }
 
         [AffinityPostfix]
@@ -20,7 +22,7 @@ namespace Technicolor.HarmonyPatches
             _manager.Colorize(__instance, TechnicolorController.GetTechnicolor(
                 true,
                 obstacleData.time + __instance.GetInstanceID(),
-                TechnicolorConfig.Instance.TechnicolorWallsStyle));
+                _config.TechnicolorWallsStyle));
         }
     }
 }

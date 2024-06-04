@@ -6,12 +6,19 @@ namespace Technicolor.HarmonyPatches
 {
     internal class BackgroundGradientColorizer : IAffinity
     {
+        private readonly Config _config;
+
         private BloomPrePassBackgroundColorsGradientFromColorSchemeColors.Element[]? _elements;
-        private BloomPrePassBackgroundColorsGradient _bloomPrePassBackgroundColorsGradient = null!; // YOLO
+        private BloomPrePassBackgroundColorsGradient? _bloomPrePassBackgroundColorsGradient;
+
+        private BackgroundGradientColorizer(Config config)
+        {
+            _config = config;
+        }
 
         internal void SetGradientColors(Color colorLeft, Color colorRight)
         {
-            if (_elements == null)
+            if (_elements == null || _bloomPrePassBackgroundColorsGradient == null)
             {
                 return;
             }
@@ -55,7 +62,7 @@ namespace Technicolor.HarmonyPatches
             _bloomPrePassBackgroundColorsGradient = ____bloomPrePassBackgroundColorsGradient;
             _elements = ____elements;
 
-            if (TechnicolorConfig.Instance.DisableGradientBackground)
+            if (_config.DisableGradientBackground)
             {
                 __instance.gameObject.SetActive(false);
             }

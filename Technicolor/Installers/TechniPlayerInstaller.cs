@@ -9,8 +9,15 @@ using static Technicolor.TechnicolorController;
 namespace Technicolor.Installers
 {
     [UsedImplicitly]
-    internal class PlayerInstaller : Installer
+    internal class TechniPlayerInstaller : Installer
     {
+        private readonly Config _config;
+
+        internal TechniPlayerInstaller(Config config)
+        {
+            _config = config;
+        }
+
         public override void InstallBindings()
         {
             if (!TechnicolorEnabled)
@@ -43,9 +50,8 @@ namespace Technicolor.Installers
                 Container.BindInterfacesTo<TechniBomb>().AsSingle();
             }
 
-            TechnicolorConfig config = TechnicolorConfig.Instance;
-            if (config.TechnicolorSabersStyle != TechnicolorStyle.OFF ||
-                (config.UseLeftSaberStyle && config.LeftTechnicolorSabersStyle != TechnicolorStyle.OFF))
+            if (_config.TechnicolorSabersStyle != TechnicolorStyle.OFF ||
+                (_config.UseLeftSaberStyle && _config.LeftTechnicolorSabersStyle != TechnicolorStyle.OFF))
             {
                 Container.BindInstance(true).WithId("dontColorizeSabers");
             }

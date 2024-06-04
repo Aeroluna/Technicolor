@@ -1,20 +1,11 @@
-﻿using System;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using Technicolor.Managers;
 
 namespace Technicolor.Settings
 {
     [UsedImplicitly]
-    public class TechnicolorConfig
+    public class Config
     {
-        private static TechnicolorConfig? _instance;
-
-        public static TechnicolorConfig Instance
-        {
-            get => _instance ?? throw new InvalidOperationException("TechnicolorConfig instance not yet created.");
-            set => _instance = value;
-        }
-
         public bool TechnicolorEnabled { get; set; } = true;
 
         public TechnicolorStyle TechnicolorLightsStyle { get; set; } = TechnicolorStyle.GRADIENT;

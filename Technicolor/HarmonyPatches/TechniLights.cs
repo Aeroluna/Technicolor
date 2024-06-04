@@ -11,28 +11,30 @@ namespace Technicolor.HarmonyPatches
     internal class TechniLights : IAffinity
     {
         private readonly LightColorizerManager _manager;
+        private readonly Config _config;
 
-        private TechniLights(LightColorizerManager manager)
+        private TechniLights(LightColorizerManager manager, Config config)
         {
             _manager = manager;
+            _config = config;
         }
 
         [AffinityPrefix]
         [AffinityPatch(typeof(ChromaLightSwitchEventEffect), "BasicCallback")]
         private bool Colorize(ChromaLightSwitchEventEffect __instance, BasicBeatmapEventData beatmapEventData)
         {
-            if (!TechnicolorConfig.Instance.TechnicolorEnabled)
+            if (!_config.TechnicolorEnabled)
             {
                 return true;
             }
 
             LightColorizer lightColorizer = __instance.Colorizer;
             bool warm = BeatmapEventDataLightsExtensions.GetLightColorTypeFromEventDataValue(beatmapEventData.value) == EnvironmentColorType.Color1;
-            if (TechnicolorConfig.Instance.TechnicolorLightsGrouping == TechnicolorLightsGrouping.ISOLATED)
+            if (_config.TechnicolorLightsGrouping == TechnicolorLightsGrouping.ISOLATED)
             {
                 foreach (ILightWithId light in lightColorizer.Lights)
                 {
-                    Color color = TechnicolorController.GetTechnicolor(warm, beatmapEventData.time + light.GetHashCode(), TechnicolorConfig.Instance.TechnicolorLightsStyle);
+                    Color color = TechnicolorController.GetTechnicolor(warm, beatmapEventData.time + light.GetHashCode(), _config.TechnicolorLightsStyle);
                     lightColorizer.Colorize(false, color, color, color, color);
                     __instance.Refresh(true, new[] { light }, beatmapEventData);
                 }
@@ -41,14 +43,14 @@ namespace Technicolor.HarmonyPatches
             }
 
             if (!(TechnicolorController.TechniLightRandom.NextDouble() <
-                  TechnicolorConfig.Instance.TechnicolorLightsFrequency))
+                  _config.TechnicolorLightsFrequency))
             {
                 return true;
             }
 
             {
-                Color color = TechnicolorController.GetTechnicolor(warm, beatmapEventData.time, TechnicolorConfig.Instance.TechnicolorLightsStyle);
-                switch (TechnicolorConfig.Instance.TechnicolorLightsGrouping)
+                Color color = TechnicolorController.GetTechnicolor(warm, beatmapEventData.time, _config.TechnicolorLightsStyle);
+                switch (_config.TechnicolorLightsGrouping)
                 {
                     case TechnicolorLightsGrouping.ISOLATED_GROUP:
                         lightColorizer.Colorize(false, color, color, color, color);

@@ -39,6 +39,7 @@ namespace Technicolor.Managers
         private readonly float _timeMult;
         private readonly float _timeGlobalMult;
 
+        private readonly Config _config;
         private readonly SaberColorizerManager _saberColorizerManager;
         private readonly LightColorizerManager _lightColorizerManager;
         private readonly ObstacleColorizerManager _obstacleColorizerManager;
@@ -60,6 +61,7 @@ namespace Technicolor.Managers
         private float _h;
 
         private GradientController(
+            Config config,
             SaberColorizerManager saberColorizerManager,
             LightColorizerManager lightColorizerManager,
             ObstacleColorizerManager obstacleColorizerManager,
@@ -67,18 +69,18 @@ namespace Technicolor.Managers
             BombColorizerManager bombColorizerManager,
             BackgroundGradientColorizer backgroundGradientColorizer)
         {
+            _config = config;
             _saberColorizerManager = saberColorizerManager;
             _lightColorizerManager = lightColorizerManager;
             _obstacleColorizerManager = obstacleColorizerManager;
             _noteColorizerManager = noteColorizerManager;
             _bombColorizerManager = bombColorizerManager;
             _backgroundGradientColorizer = backgroundGradientColorizer;
-            _match = TechnicolorConfig.Instance.Desync;
+            _match = config.Desync;
             _mismatchSpeedOffset = _match ? 0 : 0.5f;
-            _timeMult = TechnicolorConfig.Instance.TechnicolorLightsFrequency;
-            _timeGlobalMult = (TechnicolorConfig.Instance.TechnicolorLightsFrequency / 2) + 0.7f;
+            _timeMult = config.TechnicolorLightsFrequency;
+            _timeGlobalMult = (config.TechnicolorLightsFrequency / 2) + 0.7f;
 
-            TechnicolorConfig config = TechnicolorConfig.Instance;
             if (config.TechnicolorLightsStyle == TechnicolorStyle.GRADIENT)
             {
                 UpdateTechnicolourEvent += RainbowLights;
@@ -219,7 +221,7 @@ namespace Technicolor.Managers
 
         private void RainbowLights()
         {
-            if (TechnicolorConfig.Instance.TechnicolorLightsGrouping == TechnicolorLightsGrouping.ISOLATED)
+            if (_config.TechnicolorLightsGrouping == TechnicolorLightsGrouping.ISOLATED)
             {
                 _lightColorizerManager.GlobalColorize(false, _gradientLeftColor, _gradientRightColor, _gradientLeftColor, _gradientRightColor);
                 foreach (LightColorizer lightColorizer in _lightColorizerManager.Colorizers.Values)

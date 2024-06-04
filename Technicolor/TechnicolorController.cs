@@ -1,6 +1,4 @@
 ﻿using System.ComponentModel;
-using HarmonyLib;
-using Heck;
 using Technicolor.Managers;
 using UnityEngine;
 using Random = System.Random;
@@ -26,14 +24,6 @@ namespace Technicolor
         internal static bool NotesEnabled { get; set; }
 
         internal static bool BombsEnabled { get; set; }
-
-        internal static Module TechniModule { get; } = ModuleManager.Register<ModuleCallbacks>(
-            "Technicolor",
-            1,
-            RequirementType.Condition,
-            null,
-            new[] { "ChromaColorizer" },
-            new[] { "Chroma" });
 
         internal static Color GetTechnicolor(bool warm, float time, TechnicolorStyle style, TechnicolorTransition transition = TechnicolorTransition.FLAT)
         {

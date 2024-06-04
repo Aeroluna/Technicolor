@@ -7,10 +7,12 @@ namespace Technicolor.HarmonyPatches
     internal class TechniBomb : IAffinity
     {
         private readonly BombColorizerManager _manager;
+        private readonly Config _config;
 
-        private TechniBomb(BombColorizerManager manager)
+        private TechniBomb(BombColorizerManager manager, Config config)
         {
             _manager = manager;
+            _config = config;
         }
 
         [AffinityPostfix]
@@ -20,7 +22,7 @@ namespace Technicolor.HarmonyPatches
             _manager.Colorize(__instance, TechnicolorController.GetTechnicolor(
                 true,
                 noteData.time + __instance.GetInstanceID(),
-                TechnicolorConfig.Instance.TechnicolorBombsStyle));
+                _config.TechnicolorBombsStyle));
         }
     }
 }

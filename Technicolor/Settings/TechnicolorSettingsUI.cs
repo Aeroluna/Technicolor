@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using BeatSaberMarkupLanguage.Attributes;
+using BeatSaberMarkupLanguage.GameplaySetup;
+using BeatSaberMarkupLanguage.Settings;
 using JetBrains.Annotations;
 using Technicolor.Managers;
 
 namespace Technicolor.Settings
 {
-    internal class TechnicolorSettingsUI : PersistentSingleton<TechnicolorSettingsUI>
+    internal class TechnicolorSettingsUI : IDisposable
     {
+        private readonly Config _config;
+
         [UsedImplicitly]
         [UIValue("techlightschoices")]
         private readonly List<object> _techlightsChoices = new() { TechnicolorStyle.OFF, TechnicolorStyle.WARM_COLD, TechnicolorStyle.PURE_RANDOM, TechnicolorStyle.GRADIENT };
@@ -28,125 +32,140 @@ namespace Technicolor.Settings
         [UIValue("colorboostchoices")]
         private readonly List<object> _colorboostChoices = new() { -0.9f, -0.8f, -0.7f, -0.6f, -0.5f, -0.4f, -0.3f, -0.2f, -0.1f, 0f, 0.1f, 0.2f, 0.3f, 0.4f, 0.5f, 0.6f, 0.7f, 0.8f, 0.9f, 1f, 1.2f, 1.4f, 1.6f, 1.8f, 2f, 2.5f, 3f, 4f, 5f, 6f, 7f, 8f, 9f, 10f, 20f, 100f };
 
+        private TechnicolorSettingsUI(Config config)
+        {
+            _config = config;
+            BSMLSettings.instance.AddSettingsMenu("Technicolor", "Technicolor.Settings.settings.bsml", this);
+            GameplaySetup.instance.AddTab("Technicolor", "Technicolor.Settings.modifiers.bsml", this);
+        }
+
+        public void Dispose()
+        {
+            BSMLSettings.instance.RemoveSettingsMenu(this);
+            GameplaySetup.instance.RemoveTab("Technicolor");
+        }
+
 #pragma warning disable CA1822
         [UsedImplicitly]
         [UIValue("technicolor")]
+#pragma warning disable SA1201
         public bool TechnicolorEnabled
+#pragma warning restore SA1201
         {
-            get => TechnicolorConfig.Instance.TechnicolorEnabled;
-            set => TechnicolorConfig.Instance.TechnicolorEnabled = value;
+            get => _config.TechnicolorEnabled;
+            set => _config.TechnicolorEnabled = value;
         }
 
         [UsedImplicitly]
         [UIValue("techlights")]
         public TechnicolorStyle TechnicolorLightsStyle
         {
-            get => TechnicolorConfig.Instance.TechnicolorLightsStyle;
-            set => TechnicolorConfig.Instance.TechnicolorLightsStyle = value;
+            get => _config.TechnicolorLightsStyle;
+            set => _config.TechnicolorLightsStyle = value;
         }
 
         [UsedImplicitly]
         [UIValue("lightsgroup")]
         public TechnicolorLightsGrouping TechnicolorLightsGroup
         {
-            get => TechnicolorConfig.Instance.TechnicolorLightsGrouping;
-            set => TechnicolorConfig.Instance.TechnicolorLightsGrouping = value;
+            get => _config.TechnicolorLightsGrouping;
+            set => _config.TechnicolorLightsGrouping = value;
         }
 
         [UsedImplicitly]
         [UIValue("lightsfreq")]
         public float TechnicolorLightsFrequency
         {
-            get => TechnicolorConfig.Instance.TechnicolorLightsFrequency;
-            set => TechnicolorConfig.Instance.TechnicolorLightsFrequency = value;
+            get => _config.TechnicolorLightsFrequency;
+            set => _config.TechnicolorLightsFrequency = value;
         }
 
         [UsedImplicitly]
         [UIValue("techbarriers")]
         public TechnicolorStyle TechnicolorWallsStyle
         {
-            get => TechnicolorConfig.Instance.TechnicolorWallsStyle;
-            set => TechnicolorConfig.Instance.TechnicolorWallsStyle = value;
+            get => _config.TechnicolorWallsStyle;
+            set => _config.TechnicolorWallsStyle = value;
         }
 
         [UsedImplicitly]
         [UIValue("techbombs")]
         public TechnicolorStyle TechnicolorBombsStyle
         {
-            get => TechnicolorConfig.Instance.TechnicolorBombsStyle;
-            set => TechnicolorConfig.Instance.TechnicolorBombsStyle = value;
+            get => _config.TechnicolorBombsStyle;
+            set => _config.TechnicolorBombsStyle = value;
         }
 
         [UsedImplicitly]
         [UIValue("technotes")]
         public TechnicolorStyle TechnicolorBlocksStyle
         {
-            get => TechnicolorConfig.Instance.TechnicolorBlocksStyle;
-            set => TechnicolorConfig.Instance.TechnicolorBlocksStyle = value;
+            get => _config.TechnicolorBlocksStyle;
+            set => _config.TechnicolorBlocksStyle = value;
         }
 
         [UsedImplicitly]
         [UIValue("techsabers")]
         public TechnicolorStyle TechnicolorSabersStyle
         {
-            get => TechnicolorConfig.Instance.TechnicolorSabersStyle;
-            set => TechnicolorConfig.Instance.TechnicolorSabersStyle = value;
+            get => _config.TechnicolorSabersStyle;
+            set => _config.TechnicolorSabersStyle = value;
         }
 
         [UsedImplicitly]
         [UIValue("desync")]
         public bool Desync
         {
-            get => !TechnicolorConfig.Instance.Desync;
-            set => TechnicolorConfig.Instance.Desync = !value;
+            get => !_config.Desync;
+            set => _config.Desync = !value;
         }
 
         [UsedImplicitly]
         [UIValue("disablegradient")]
         public bool DisableGradientBackground
         {
-            get => TechnicolorConfig.Instance.DisableGradientBackground;
-            set => TechnicolorConfig.Instance.DisableGradientBackground = value;
+            get => _config.DisableGradientBackground;
+            set => _config.DisableGradientBackground = value;
         }
 
         [UsedImplicitly]
         [UIValue("colorboost")]
         public float ColorBoost
         {
-            get => TechnicolorConfig.Instance.ColorBoost;
-            set => TechnicolorConfig.Instance.ColorBoost = value;
+            get => _config.ColorBoost;
+            set => _config.ColorBoost = value;
         }
 
         [UsedImplicitly]
         [UIValue("useleftnote")]
         public bool UseLeftBlocksStyle
         {
-            get => TechnicolorConfig.Instance.UseLeftBlocksStyle;
-            set => TechnicolorConfig.Instance.UseLeftBlocksStyle = value;
+            get => _config.UseLeftBlocksStyle;
+            set => _config.UseLeftBlocksStyle = value;
         }
 
         [UsedImplicitly]
         [UIValue("lefttechnotes")]
         public TechnicolorStyle LeftTechnicolorBlocksStyle
         {
-            get => TechnicolorConfig.Instance.LeftTechnicolorBlocksStyle;
-            set => TechnicolorConfig.Instance.LeftTechnicolorBlocksStyle = value;
+            get => _config.LeftTechnicolorBlocksStyle;
+            set => _config.LeftTechnicolorBlocksStyle = value;
         }
 
         [UsedImplicitly]
         [UIValue("useleftsaber")]
         public bool UseLeftSaberStyle
         {
-            get => TechnicolorConfig.Instance.UseLeftSaberStyle;
-            set => TechnicolorConfig.Instance.UseLeftSaberStyle = value;
+            get => _config.UseLeftSaberStyle;
+            set => _config.UseLeftSaberStyle = value;
         }
 
         [UsedImplicitly]
         [UIValue("lefttechsabers")]
         public TechnicolorStyle LeftTechnicolorSabersStyle
         {
-            get => TechnicolorConfig.Instance.LeftTechnicolorSabersStyle;
-            set => TechnicolorConfig.Instance.LeftTechnicolorSabersStyle = value;
+            get => _config.LeftTechnicolorSabersStyle;
+            set => _config.LeftTechnicolorSabersStyle = value;
         }
 
         [UsedImplicitly]

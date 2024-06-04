@@ -1,16 +1,12 @@
-﻿using BeatSaberMarkupLanguage.GameplaySetup;
-using BeatSaberMarkupLanguage.Settings;
-using HarmonyLib;
-using Heck;
+﻿using HarmonyLib;
 using IPA;
-using IPA.Config;
 using IPA.Config.Stores;
-using IPA.Logging;
 using JetBrains.Annotations;
 using SiraUtil.Zenject;
 using Technicolor.Installers;
 using Technicolor.Settings;
 using static Technicolor.TechnicolorController;
+using Config = Technicolor.Settings.Config;
 
 namespace Technicolor
 {
@@ -21,11 +17,10 @@ namespace Technicolor
 
         [UsedImplicitly]
         [Init]
-        public Plugin(Logger pluginLogger, Config config, Zenjector zenjector)
+        public Plugin(IPA.Config.Config config, Zenjector zenjector)
         {
-            Log.Logger = new HeckLogger(pluginLogger);
-            TechnicolorConfig.Instance = config.Generated<TechnicolorConfig>();
-            zenjector.Install<PlayerInstaller>(Location.Player);
+            zenjector.Install<TechniAppInstaller>(Location.App, config.Generated<Config>());
+            zenjector.Install<TechniPlayerInstaller>(Location.Player);
         }
 
 #pragma warning disable CA1822
@@ -34,9 +29,6 @@ namespace Technicolor
         public void OnEnable()
         {
             _harmonyInstance.PatchAll(typeof(Plugin).Assembly);
-            BSMLSettings.instance.AddSettingsMenu("Technicolor", "Technicolor.Settings.settings.bsml", TechnicolorSettingsUI.instance);
-            GameplaySetup.instance.AddTab("Technicolor", "Technicolor.Settings.modifiers.bsml", TechnicolorSettingsUI.instance);
-            TechniModule.Enabled = true;
         }
 
         [UsedImplicitly]
@@ -44,9 +36,6 @@ namespace Technicolor
         public void OnDisable()
         {
             _harmonyInstance.UnpatchSelf();
-            BSMLSettings.instance.RemoveSettingsMenu(TechnicolorSettingsUI.instance);
-            GameplaySetup.instance.RemoveTab("Technicolor");
-            TechniModule.Enabled = false;
             LightsEnabled = false;
             ObstaclesEnabled = false;
             NotesEnabled = false;
