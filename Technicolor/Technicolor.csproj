@@ -5,9 +5,24 @@
     <OutputType>Library</OutputType>
     <LangVersion>9</LangVersion>
     <Nullable>enable</Nullable>
-    <EnableNETAnalyzers>true</EnableNETAnalyzers>
-    <DebugType>portable</DebugType>
+    <Configurations>Debug-1.29.1;Release-1.29.1</Configurations>
+    <AppendGameVersion>false</AppendGameVersion>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <PluginId>Technicolor</PluginId>
+    <PluginName>Technicolor</PluginName>
+    <Author>Aeroluna</Author>
+    <Version>1.1.0</Version>
+    <Description>Rainbow lights!</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <DependsOn Include="_Heck" Version="^1.6.0" />
+    <DependsOn Include="BeatSaberMarkupLanguage" Version="^1.6.3" />
+    <DependsOn Include="Chroma" Version="^2.9.0" />
+    <DependsOn Include="BSIPA" Version="^4.2.2" />
+    <DependsOn Include="SiraUtil" Version="^3.0.5" />
+  </ItemGroup>
 
   <ItemGroup>
     <Reference Include="0Harmony" HintPath="$(BeatSaberDir)\Libs\0Harmony.dll" />
@@ -28,14 +43,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="manifest.json" />
     <EmbeddedResource Include="Settings\modifiers.bsml" />
     <EmbeddedResource Include="Settings\settings.bsml" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BeatSaberModdingTools.Tasks" Version="1.4.3" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.354" />
+    <PackageReference Include="BeatSaberModdingTools.Tasks.Luna" Version="2.1.0" />
     <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.*" />
+    <PackageReference Include="LunaBSMod.Tasks" Version="1.0.0" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.354" />
   </ItemGroup>
 </Project>

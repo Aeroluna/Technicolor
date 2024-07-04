@@ -4,7 +4,6 @@ using IPA.Config.Stores;
 using JetBrains.Annotations;
 using SiraUtil.Zenject;
 using Technicolor.Installers;
-using Technicolor.Settings;
 using static Technicolor.TechnicolorController;
 using Config = Technicolor.Settings.Config;
 

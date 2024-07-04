@@ -1,4 +1,5 @@
 ﻿using Heck;
+using Heck.Module;
 using Technicolor.Managers;
 using Technicolor.Settings;
 using static Technicolor.TechnicolorController;
