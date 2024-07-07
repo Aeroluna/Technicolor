@@ -17,7 +17,6 @@ namespace Technicolor.Installers
         public override void InstallBindings()
         {
             Container.BindInstance(_config);
-            Container.BindInterfacesTo<TechnicolorSettingsUI>().AsSingle();
             Container.BindInterfacesTo<TechnicolorModule>().AsSingle();
         }
     }

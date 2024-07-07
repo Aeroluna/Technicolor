@@ -19,6 +19,7 @@ namespace Technicolor
         public Plugin(IPA.Config.Config config, Zenjector zenjector)
         {
             zenjector.Install<TechniAppInstaller>(Location.App, config.Generated<Config>());
+            zenjector.Install<TechniMenuInstaller>(Location.Menu);
             zenjector.Install<TechniPlayerInstaller>(Location.Player);
         }
 

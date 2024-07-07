@@ -11,6 +11,10 @@ namespace Technicolor.Settings
     internal class TechnicolorSettingsUI : IDisposable
     {
         private readonly Config _config;
+#if !V1_29_1
+        private readonly BSMLSettings _bsmlSettings;
+        private readonly GameplaySetup _gameplaySetup;
+#endif
 
         [UsedImplicitly]
         [UIValue("techlightschoices")]
@@ -32,17 +36,35 @@ namespace Technicolor.Settings
         [UIValue("colorboostchoices")]
         private readonly List<object> _colorboostChoices = new() { -0.9f, -0.8f, -0.7f, -0.6f, -0.5f, -0.4f, -0.3f, -0.2f, -0.1f, 0f, 0.1f, 0.2f, 0.3f, 0.4f, 0.5f, 0.6f, 0.7f, 0.8f, 0.9f, 1f, 1.2f, 1.4f, 1.6f, 1.8f, 2f, 2.5f, 3f, 4f, 5f, 6f, 7f, 8f, 9f, 10f, 20f, 100f };
 
-        private TechnicolorSettingsUI(Config config)
+        // i wish nico backported the bsml updates :(
+        private TechnicolorSettingsUI(
+#if !V1_29_1
+            BSMLSettings bsmlSettings,
+            GameplaySetup gameplaySetup,
+#endif
+            Config config)
         {
             _config = config;
+#if !V1_29_1
+            _bsmlSettings = bsmlSettings;
+            _gameplaySetup = gameplaySetup;
+            bsmlSettings.AddSettingsMenu("Technicolor", "Technicolor.Settings.settings.bsml", this);
+            gameplaySetup.AddTab("Technicolor", "Technicolor.Settings.modifiers.bsml", this);
+#else
             BSMLSettings.instance.AddSettingsMenu("Technicolor", "Technicolor.Settings.settings.bsml", this);
             GameplaySetup.instance.AddTab("Technicolor", "Technicolor.Settings.modifiers.bsml", this);
+#endif
         }
 
         public void Dispose()
         {
+#if !V1_29_1
+            _bsmlSettings.RemoveSettingsMenu(this);
+            _gameplaySetup.RemoveTab("Technicolor");
+#else
             BSMLSettings.instance.RemoveSettingsMenu(this);
             GameplaySetup.instance.RemoveTab("Technicolor");
+#endif
         }
 
 #pragma warning disable CA1822
