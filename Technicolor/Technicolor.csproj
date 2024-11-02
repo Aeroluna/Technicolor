@@ -12,11 +12,11 @@
     <PluginId>Technicolor</PluginId>
     <PluginName>Technicolor</PluginName>
     <Author>Aeroluna</Author>
-    <Version>1.1.1</Version>
+    <Version>1.1.2</Version>
     <Description>Rainbow lights!</Description>
   </PropertyGroup>
   <ItemGroup>
-    <DependsOn Include="_Heck" Version="^1.6.0" />
+    <DependsOn Include="Heck" Version="^1.6.0" />
     <DependsOn Include="BeatSaberMarkupLanguage" Version="^1.6.3" />
     <DependsOn Include="Chroma" Version="^2.9.0" />
     <DependsOn Include="BSIPA" Version="^4.2.2" />

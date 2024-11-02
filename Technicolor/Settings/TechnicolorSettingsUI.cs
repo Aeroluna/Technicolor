@@ -5,16 +5,15 @@ using BeatSaberMarkupLanguage.GameplaySetup;
 using BeatSaberMarkupLanguage.Settings;
 using JetBrains.Annotations;
 using Technicolor.Managers;
+using Zenject;
 
 namespace Technicolor.Settings
 {
-    internal class TechnicolorSettingsUI : IDisposable
+    internal class TechnicolorSettingsUI : IInitializable, IDisposable
     {
         private readonly Config _config;
-#if !V1_29_1
         private readonly BSMLSettings _bsmlSettings;
         private readonly GameplaySetup _gameplaySetup;
-#endif
 
         [UsedImplicitly]
         [UIValue("techlightschoices")]
@@ -48,23 +47,22 @@ namespace Technicolor.Settings
 #if !V1_29_1
             _bsmlSettings = bsmlSettings;
             _gameplaySetup = gameplaySetup;
-            bsmlSettings.AddSettingsMenu("Technicolor", "Technicolor.Settings.settings.bsml", this);
-            gameplaySetup.AddTab("Technicolor", "Technicolor.Settings.modifiers.bsml", this);
 #else
-            BSMLSettings.instance.AddSettingsMenu("Technicolor", "Technicolor.Settings.settings.bsml", this);
-            GameplaySetup.instance.AddTab("Technicolor", "Technicolor.Settings.modifiers.bsml", this);
+            _bsmlSettings = BSMLSettings.instance;
+            _gameplaySetup = GameplaySetup.instance;
 #endif
+        }
+
+        public void Initialize()
+        {
+            _bsmlSettings.AddSettingsMenu("Technicolor", "Technicolor.Settings.settings.bsml", this);
+            _gameplaySetup.AddTab("Technicolor", "Technicolor.Settings.modifiers.bsml", this);
         }
 
         public void Dispose()
         {
-#if !V1_29_1
             _bsmlSettings.RemoveSettingsMenu(this);
             _gameplaySetup.RemoveTab("Technicolor");
-#else
-            BSMLSettings.instance.RemoveSettingsMenu(this);
-            GameplaySetup.instance.RemoveTab("Technicolor");
-#endif
         }
 
 #pragma warning disable CA1822
