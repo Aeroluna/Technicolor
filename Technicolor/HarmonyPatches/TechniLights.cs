@@ -35,7 +35,7 @@ namespace Technicolor.HarmonyPatches
                 foreach (ILightWithId light in lightColorizer.Lights)
                 {
                     Color color = TechnicolorController.GetTechnicolor(warm, beatmapEventData.time + light.GetHashCode(), _config.TechnicolorLightsStyle);
-                    lightColorizer.Colorize(false, color, color, color, color);
+                    lightColorizer.Colorize(true, color, color, color, color);
                     __instance.Refresh(true, new[] { light }, beatmapEventData);
                 }
 
@@ -53,11 +53,11 @@ namespace Technicolor.HarmonyPatches
                 switch (_config.TechnicolorLightsGrouping)
                 {
                     case TechnicolorLightsGrouping.ISOLATED_GROUP:
-                        lightColorizer.Colorize(false, color, color, color, color);
+                        lightColorizer.Colorize(true, color, color, color, color);
                         break;
 
                     default:
-                        _manager.GlobalColorize(false, color, color, color, color);
+                        _manager.GlobalColorize(true, color, color, color, color);
                         break;
                 }
             }
