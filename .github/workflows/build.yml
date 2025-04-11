@@ -26,7 +26,7 @@ jobs:
     needs: build
     permissions:
       contents: write
-    uses: Aeroluna/workflows/.github/workflows/bs-create-release-from-date.yml@main
+    uses: Aeroluna/workflows/.github/workflows/bs-create-release-from-project.yml@main
     with:
       project-path: Technicolor/Technicolor.csproj
     secrets: inherit
