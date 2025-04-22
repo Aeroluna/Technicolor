@@ -19,7 +19,7 @@ namespace Technicolor.HarmonyPatches
         [AffinityPatch(typeof(BombNoteController), nameof(BombNoteController.Init))]
         private void Colorize(BombNoteController __instance, NoteData noteData)
         {
-            _manager.Colorize(__instance, TechnicolorController.GetTechnicolor(
+            _manager.GlobalColorize(TechnicolorController.GetTechnicolor(
                 true,
                 noteData.time + __instance.GetInstanceID(),
                 _config.TechnicolorBombsStyle));
